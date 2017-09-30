@@ -3,7 +3,10 @@ namespace Corp\Repositories;
 
 use Config;
 
-// Каждая сущность бд будет работать со своим репозиторием
+/**
+ * Каждая сущность бд будет работать со своим репозиторием
+ * */
+
 abstract class Repository {
 
     protected $model = FALSE;
