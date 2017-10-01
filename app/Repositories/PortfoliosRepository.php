@@ -11,4 +11,5 @@ class PortfoliosRepository extends Repository {
         //model будем записывать ту модель, которая работает с конкретной таблицей бд
         $this->model = $portfolio;
     }
+
 }
