@@ -34,8 +34,8 @@ Route::resource('portfolios','PortfolioController',[
 
                                                     'parameters' =>[
 
-                                                        'portfolios' => 'alias'
-                                                                                                            ]
+                                                                    'portfolios' => 'alias'
+                                                                ]
 
                                                     ]);
 
@@ -45,5 +45,7 @@ Route::resource('articles','ArticlesController',[
 
                                                         'articles' => 'alias'
                                                 ]
+                                                ]);
 
-]);
+Route::get('articles/cat/{cat_alias?}',['users' => 'ArticlesController@index', 'as' => 'articlesCar']);
+

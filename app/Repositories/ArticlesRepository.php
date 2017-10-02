@@ -1,11 +1,11 @@
 <?php
 namespace Corp\Repositories;
 
-use Corp\Articles;
+use Corp\Article;
 
 class ArticlesRepository extends Repository {
 
-    public function __construct(Articles $articles)
+    public function __construct(Article $articles)
     {
         //model будем записывать ту модель, которая работает с конкретной таблицей бд
         $this->model = $articles;

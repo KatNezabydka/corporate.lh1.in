@@ -17,13 +17,17 @@ abstract class Repository {
      * @param bool $take
      * @return mixed
      */
-    public function get($select = '*', $take = FALSE) {
+    public function get($select = '*', $take = FALSE, $pagination = FALSE) {
         //select - указывает какие поля нужно выбрать их бд
         $builder = $this->model->select($select);
 
         if($take) {
             //take() - выдирает заданое количество записей из бд
             $builder->take($take);
+        }
+        //добавили пагинацию
+        if($pagination) {
+            return $this->check($builder->paginate(Config::get('settings.paginate')));
         }
 
         return $this->check($builder->get());
