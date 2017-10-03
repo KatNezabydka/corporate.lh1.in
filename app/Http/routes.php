@@ -47,5 +47,5 @@ Route::resource('articles','ArticlesController',[
                                                 ]
                                                 ]);
 
-Route::get('articles/cat/{cat_alias?}',['users' => 'ArticlesController@index', 'as' => 'articlesCar']);
+Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'as' => 'articlesCar']);
 

@@ -17,7 +17,7 @@ abstract class Repository {
      * @param bool $take
      * @return mixed
      */
-    public function get($select = '*', $take = FALSE, $pagination = FALSE) {
+    public function get($select = '*', $take = FALSE, $pagination = FALSE, $where = FALSE) {
         //select - указывает какие поля нужно выбрать их бд
         $builder = $this->model->select($select);
 
@@ -25,6 +25,11 @@ abstract class Repository {
             //take() - выдирает заданое количество записей из бд
             $builder->take($take);
         }
+        // для выбора статей конкретной категории; $where[0] - имя, $where[1] - значение
+        if($where) {
+            $builder->where($where[0], $where[1]);
+        }
+
         //добавили пагинацию
         if($pagination) {
             return $this->check($builder->paginate(Config::get('settings.paginate')));
@@ -57,6 +62,13 @@ abstract class Repository {
         });
 
         return $result;
+
+    }
+
+    public function one($alias, $attr = array()) {
+
+       $result = $this->model->where('alias',$alias)->first();
+       return $result;
 
     }
 
