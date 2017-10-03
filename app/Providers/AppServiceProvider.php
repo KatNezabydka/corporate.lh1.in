@@ -24,10 +24,10 @@ class AppServiceProvider extends ServiceProvider
 
         //Чтобы избавиться от нежелательных sql запросы
         //для просмотра всех запросов на той/иной странице
-        DB::listen(function ($query) {
-         //   echo '<h1>'.$query->sql.'<h1>';
-
-        });
+//        DB::listen(function ($query) {
+//         //   echo '<h1>'.$query->sql.'<h1>';
+//
+//        });
 
     }
 
