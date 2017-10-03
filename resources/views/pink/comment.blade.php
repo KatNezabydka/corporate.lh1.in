@@ -1,15 +1,15 @@
 
 @foreach($items as $item)
-   </br>
+
 {{--в li добавили id чтобы работала кнопка Ответить на коммент--}}
 {{--добавили в класс условие, чтобы выделить коммент, который оставляет автор статьи данной--}}
 <li id="li-comment-{{$item->id}}" class="comment even {{ ($item->user_id == $article->user_id) ? 'bypostauthor odd' : ''}}">
-    <div id="li-comment-{{$item->id}}" class="comment-container">
+    <div id="comment-{{$item->id}}" class="comment-container">
         <div class="comment-author vcard">
             {{--для отображения аватарки из gravatar нам нужен имэйл - или незарегистрированного пользователя или у зарегистрированного--}}
             @set($hash, isset($item->email) ? md5($item->email) : md5($item->user->email))
 
-            <img alt="" src="https://www.gravatar.com/avatar/{{$hash}}?d==mm&s=75" class="avatar" height="75" width="75"/>
+            <img alt="" src="https://www.gravatar.com/avatar/{{$hash}}?d=mm&s=75" class="avatar" height="75" width="75"/>
             <cite class="fn">{{$item->user->name or $item->name}}</cite>
         </div>
         <!-- .comment-author .vcard -->
@@ -25,8 +25,7 @@
                 <p>{{$item->text}}</p>
             </div>
             <div class="reply group">
-                <a class="comment-reply-link" href="#respond"
-                   onclick="return addComment.moveForm(&quot;comment-{{$item->id}}&quot;, &quot;{{$item->id}}&quot;, &quot;respond&quot;, &quot;{{$item->article_id}}&quot;)">{{ Lang::get('ru.replay') }}</a>
+                <a class="comment-reply-link" href="#respond" onclick="return addComment.moveForm(&quot;comment-{{$item->id}}&quot;, &quot;{{$item->id}}&quot;, &quot;respond&quot;, &quot;{{$item->article_id}}&quot;)">{{Lang::get('ru.replay')}}</a>
             </div>
             <!-- .reply -->
         </div>
@@ -35,7 +34,7 @@
 
     <!-- #comment-##  -->
     @if(isset($com[$item->id]))
-        <ul class="'children">
+        <ul class="children">
             @include(env('THEME').'.comment',['items'=>$com[$item->id]])
         </ul>
         @endif

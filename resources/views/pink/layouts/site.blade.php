@@ -90,6 +90,8 @@
     <script type="text/javascript" src="{{asset(env('THEME')) }}/js/jquery.colorbox-min.js"></script> <!-- nav -->
     <script type="text/javascript" src="{{asset(env('THEME')) }}/js/jquery.tweetable.js"></script>
 
+    <script type="text/javascript" src="{{asset(env('THEME')) }}/js/myscripts.js"></script>
+
 </head>
 <!-- END HEAD -->
 
@@ -140,6 +142,8 @@
         <!-- START SLIDER -->
 
         @yield('slider')
+        {{--для отображения на экран сообщений--}}
+        <div class="wrap_result"></div>
 
     <!-- START PRIMARY -->
         {{--ИМЕННО ЗДЕСЬ МОДЖНО УБРАТЬ ПРАВЫЙ САЙТ-БАР sidebar-no--}}
