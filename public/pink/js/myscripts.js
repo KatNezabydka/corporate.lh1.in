@@ -17,11 +17,12 @@ jQuery(document).ready(function($) {
                         fadeIn(500,function() {
 
                             var data = $('#commentform').serializeArray();
-
+                            //отправка post запроса
                             $.ajax({
 
                                 url: $('#commentform').attr('action'),
                                 data: data,
+                                headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
                                 type:'POST',
                                 datatype: 'JSON',
                                 success: function (html) {
