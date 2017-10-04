@@ -96,7 +96,7 @@
                 <p class="comment-form-email"><label for="email">Email</label> <input id="email" name="email"
                                                                                       type="text" value="" size="30"
                                                                                       aria-required="true"/></p>
-                <p class="comment-form-url"><label for="url">Website</label><input id="site" name="url" type="text"
+                <p class="comment-form-url"><label for="url">Website</label><input id="site" name="site" type="text"
                                                                                    value="" size="30"/></p>
                 @endif
 

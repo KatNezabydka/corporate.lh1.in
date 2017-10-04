@@ -26,12 +26,12 @@ return [
     | Here you may specify the number of minutes that you wish the session
     | to be allowed to remain idle before it expires. If you want them
     | to immediately expire on the browser closing, set that option.
-    |
+    |Поменяла на true!!!!
     */
 
     'lifetime' => 120,
 
-    'expire_on_close' => false,
+    'expire_on_close' => true,
 
     /*
     |--------------------------------------------------------------------------
@@ -132,7 +132,7 @@ return [
     | Here you may change the domain of the cookie used to identify a session
     | in your application. This will determine which domains the cookie is
     | available to in your application. A sensible default has been set.
-    |
+    |'domain' => env('COOKIE_DOMAIN', 'corporate.loc'),
     */
 
     'domain' => null,

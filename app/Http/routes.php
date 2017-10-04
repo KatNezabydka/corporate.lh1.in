@@ -51,3 +51,4 @@ Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'a
 
 
 Route::resource('comment','CommentController',['only' =>['store']]);
+
