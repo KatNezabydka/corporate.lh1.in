@@ -145,7 +145,8 @@
 
         @yield('slider')
         {{--для отображения на экран сообщений--}}
-        <div class="wrap_result"></div>
+        <div  class="wrap_result"></div>
+        <div id="cmc">Text </div>
 
     <!-- START PRIMARY -->
         {{--ИМЕННО ЗДЕСЬ МОДЖНО УБРАТЬ ПРАВЫЙ САЙТ-БАР sidebar-no--}}

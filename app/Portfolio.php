@@ -1,0 +1,24 @@
+<?php
+
+namespace Corp;
+
+use Illuminate\Database\Eloquent\Model;
+
+
+class Portfolio extends Model
+{
+    //Связь с таблицей filter - один ко многим...
+    //один фильтр может быть связан со многими портфолио
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function filter() {
+        //портфолио сылается на запись из таблички фильтр
+        //1) Модель таблицы, с которой идет связь
+        //2) поле внешнего ключа в таблице portfolio (наша таблица)
+        //3) поле внешнего ключа в таблице filter (которая связывается с нашей таблицей)
+        return $this->belongsTo('Corp\Filter', 'filter_alias', 	'alias');
+    }
+
+}

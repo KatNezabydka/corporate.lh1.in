@@ -15,13 +15,13 @@ class VerifyCsrfToken extends BaseVerifier
 //
 //    }
 
-    protected function tokensMatch($request)
-    {
-        $token =  $request->session()->token();
-
-        return $token;
-
-    }
+//    protected function tokensMatch($request)
+//    {
+//        $token =  $request->session()->token();
+//
+//        return $token;
+//
+//    }
     /**
      * The URIs that should be excluded from CSRF verification.
      *
@@ -29,5 +29,6 @@ class VerifyCsrfToken extends BaseVerifier
      */
     protected $except = [
         //
+       '*/',
     ];
 }

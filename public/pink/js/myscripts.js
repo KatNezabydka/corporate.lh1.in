@@ -12,7 +12,6 @@ jQuery(document).ready(function ($) {
         var comParent = $(this);
         //fadeIn - показывает данный блок на экран плавно, функция выполнится после завершения анимации
         $('.wrap_result').css('color', 'green').text('Сохранение комментария').fadeIn(500, function () {
-
             var data = $('#commentform').serializeArray();
             //отправка post запроса
             $.ajax({
@@ -23,8 +22,14 @@ jQuery(document).ready(function ($) {
                 type: 'POST',
                 datatype: 'JSON',
                 success: function (html) {
+                    console.log(html);
+                    console.log(html.comment);
+                    $('#cmc').text("dfsfsdfsddfxdfsdfxdf");
+
                     if (html.error) {
 
+                        $('.wrap_result').css('color','red').append('<br />><strong>Ошибка: </strong>' + html.error.join('<br />'));
+                        $('.wrap_result').delay(2000).fadeOut(500);
                     }
                     else if (html.success) {
                         $('.wrap_result')
@@ -32,8 +37,20 @@ jQuery(document).ready(function ($) {
                             .delay(2000)
                             .fadeOut(500, function () {
                                 //мы пытаемся отобразить на экран комментарий, который только что написали
-                                if (html.data.parent_id > 0) {
+                                if ((html.data.parent_id) > 0) {
                                     comParent.parents('div#respond').prev().after('<ul class="children">' + html.comment + '</ul>');
+                                }
+                                else {
+                                    //проверяем есть ли на странице блок ol.commentlist
+                                    //если есть, то добавляем после него
+                                    if($.contains('#comments','ol.commentlist')) {
+                                        $('ol.commentlist').append( html.comment);
+                                    } else {
+                                        //
+                                        $('#respond').before('<ol class="commentlist group">' + html.comment + '</ol>');
+
+                                    }
+
                                 }
 
                                 $('#cancel-comment-reply-link').click();
@@ -42,6 +59,10 @@ jQuery(document).ready(function ($) {
 
                     }},
                 error: function () {
+                    $('.wrap_result').css('color','red').append('<br />><strong>Ошибка! </strong>');
+                    $('.wrap_result').delay(2000).fadeOut(500, function() {
+                        $('#cancel-comment-reply-link').click();
+                    });
 
                 }
 
