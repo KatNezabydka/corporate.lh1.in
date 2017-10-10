@@ -11,5 +11,7 @@ return [
     'Filter' => 'Фильтр',
     'Customer' => 'Заказчик',
     'Year' => 'Год',
+    'other_projects' => 'Другие проекты',
+    'empty' => 'Пусто',
 
 ];

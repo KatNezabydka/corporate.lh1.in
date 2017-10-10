@@ -14,7 +14,7 @@
                     </h2>
                     <!-- post featured -->
                     <div class="image-wrap">
-                        <img src="{{ asset(env('THEME')) }}/images/articles/{{$article->img->max}}" alt="001"
+                        <img src="{{ asset(env('THEME')) }}/images/articles/{{$article->img->max}}" alt="{{Lang::get('ru.empty')}}"
                              title="{{ $article->title }}"/>
                     </div>
                     <p class="date">

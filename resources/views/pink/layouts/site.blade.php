@@ -98,8 +98,9 @@
 <!-- END HEAD -->
 
 <!-- START BODY -->
+{{--для отображение линии тени после меню в портфолио--}}
 {{--фасад Route - получаем имя маршрута, который обрабатывает текущий запрос--}}
-<body class="no_js responsive {{ Route::currentRouteName() == 'home' ? 'page-template-home-php' : '' }} stretched">
+<body class="no_js responsive {{ (Route::currentRouteName() == 'home') || (Route::currentRouteName() == 'portfolios.index') || (Route::currentRouteName() == 'portfolios.show') ? 'page-template-home-php' : '' }} stretched">
 
 <!-- START BG SHADOW -->
 <div class="bg-shadow">
@@ -146,8 +147,19 @@
         @yield('slider')
         {{--для отображения на экран сообщений--}}
         <div  class="wrap_result"></div>
+        {{--если для обработки шаблона используется страничка портфолио - это будет отображаться на экране--}}
+        @if(Route::currentRouteName() == 'portfolios.index')
+        <!-- START PAGE META -->
+        <div id="page-meta">
+            <div class="inner group">
+                <h3>Welcome to my portfolio page</h3>
+                <h4>... i hope you enjoy my works</h4>
+            </div>
+        </div>
+        <!-- END PAGE META -->
+        @endif
 
-    <!-- START PRIMARY -->
+        <!-- START PRIMARY -->
         {{--ИМЕННО ЗДЕСЬ МОДЖНО УБРАТЬ ПРАВЫЙ САЙТ-БАР sidebar-no--}}
         <div id="primary" class="sidebar-{{ isset($bar) ? $bar : 'no' }}">
             <div class="inner group">

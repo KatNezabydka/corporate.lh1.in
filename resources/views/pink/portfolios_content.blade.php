@@ -36,7 +36,7 @@
                         </div>
                         <div class="work-description">
                             <h3>{{$portfolio->title}}</h3>
-                            <p>{{$portfolio->text}}</p>
+                            <p>{{str_limit($portfolio->text, 130)}}</p>
                             <div class="clear"></div>
                             <div class="work-skillsdate">
                                 <p class="skills"><span class="label">{{Lang::get('ru.Filter')}}
@@ -47,7 +47,7 @@
                                 {{--Добавляем дату создания--}}
                                 @if($portfolio->create_at)
                                     <p class="workdate"><span class="label">{{Lang::get('ru.Year')}}
-                                            : </span> {{ $portfolio->ctreated_at->format(Y) }}</p>
+                                            : </span> {{ $portfolio->ctreated_at->format('Y') }}</p>
                                 @endif
 
                             </div>

@@ -39,10 +39,10 @@ class PortfolioController extends SiteController
 
     }
 
-    public function getPortfolios()
+    public function getPortfolios($take = FALSE, $paginate = TRUE)
     {
         //работаем с репозиторием p_rep
-        $portfolios = $this->p_rep->get('*', FALSE,TRUE);
+        $portfolios = $this->p_rep->get('*', $take,$paginate);
 
         //если есть связанная модель - а у нас это фильтр - нужно подгрузить ее
         if($portfolios ) {
@@ -53,5 +53,27 @@ class PortfolioController extends SiteController
 
     }
 
+
+    //Показывает конкретную страницу статьи
+    //$alias - указание, какую страницу выбирать из бд
+    public function show($alias)
+    {
+
+        $portfolio = $this->p_rep->one($alias);
+
+              // Добавляем описание в мета конкретной статьи
+        $this->title = $portfolio->title;
+        $this->keywords = $portfolio->keywords;
+        $this->meta_desc= $portfolio->meta_desc;
+
+        $portfolios = $this->getPortfolios(config('settings.other_portfolios'), FALSE);
+
+        $content = view(env('THEME') . '.portfolio_content')->with(['portfolio' => $portfolio, 'portfolios' => $portfolios])->render();
+        $this->vars = array_add( $this->vars,'content',$content );
+
+
+        return $this->renderOutput();
+
+    }
 
 }

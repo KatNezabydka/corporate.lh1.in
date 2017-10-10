@@ -11,7 +11,7 @@
 
                     <div class="hentry-post group">
                         <div class="thumb-img"><img src="{{asset(env('THEME')) }}/images/articles/{{ $article->img->mini }}"
-                                                    alt="001" title="001"/></div>
+                                                    alt="{{Lang::get('ru.empty')}}" title="001"/></div>
                         <div class="text">
                             {{--format('') - метода класса Carbon который работает со временем--}}
                             <a href="{{ route('articles.show',['alias'=>$article->alias]) }}" title="Section shortcodes &amp; sticky posts!" class="title">{{ $article->title }}</a>

@@ -8,7 +8,7 @@
                 <h1 class="post-title"><a href="#">{{ $article->title }}</a></h1>
                 <!-- post featured -->
                 <div class="image-wrap">
-                    <img src="{{asset(env('THEME'))}}/images/articles/{{ $article->img->max }}" alt="00212"
+                    <img src="{{asset(env('THEME'))}}/images/articles/{{ $article->img->max }}" alt="{{Lang::get('ru.empty')}}"
                          title="{{ $article->title }}"/>
                 </div>
                 <p class="date">

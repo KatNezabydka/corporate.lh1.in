@@ -7,7 +7,7 @@
                 <div class="hentry-post group">
                     <div class="thumb-img"><img style="width:55px"
                                                 src="{{ asset(env('THEME')) }}/images/projects/{{ $portfolio->img->mini }}"
-                                                alt="001" title="{{ $portfolio->title }}"/></div>
+                                                alt="{{Lang::get('ru.empty')}}" title="{{ $portfolio->title }}"/></div>
                     <div class="text">
                         <a href="{{ route('portfolios.show',['alias' =>$portfolio->alias]) }}"
                            title="{{ $portfolio->title }}" class="title">{{ $portfolio->title }}</a>

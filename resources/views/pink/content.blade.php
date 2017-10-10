@@ -17,7 +17,7 @@
                                 {{--0081-385x192.jpg--}}
                                 <a class="thumb"><img
                                             src="{{asset(env('THEME')) }}/images/projects/{{ $item->img->max }}"
-                                            alt="0081" title="0081"/></a>
+                                            alt="{{Lang::get('ru.empty')}}" title="0081"/></a>
                                 <div class="work-overlay">
                                     <h3><a href="{{ route('portfolios.show', ['alias' => $item->alias]) }}">{{ $item->title }}</a></h3>
                                     <p class="work-overlay-categories"><img
@@ -50,7 +50,7 @@
                                 <div class="overlay_a related_img">
                                     <div class="overlay_wrapper">
                                         <img src="{{asset(env('THEME')) }}/images/projects/{{ $item->img->mini }}"
-                                             alt="0061" title="0061"/>
+                                             alt="{{Lang::get('ru.empty')}}" title="0061"/>
                                         <div class="overlay">
                                             <a class="overlay_img"
                                                href="{{asset(env('THEME')) }}/images/projects/{{ $item->img->path }}"
