@@ -1,14 +1,14 @@
 <?php
 
-namespace Corp\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Corp\Repositories\PortfoliosRepository;
-use Corp\Repositories\ArticlesRepository;
-use Corp\Repositories\CommentsRepository;
+use App\Repositories\PortfoliosRepository;
+use App\Repositories\ArticlesRepository;
+use App\Repositories\CommentsRepository;
 
-use Corp\Http\Requests;
-use Corp\Category;
+use App\Http\Requests;
+use App\Category;
 
 
 class ArticlesController extends SiteController
@@ -16,7 +16,7 @@ class ArticlesController extends SiteController
     //
     public function __construct(PortfoliosRepository $p_rep, ArticlesRepository $a_rep, CommentsRepository $c_rep)
     {
-        parent::__construct(new \Corp\Repositories\MenusRepository(new \Corp\Menu));
+        parent::__construct(new \App\Repositories\MenusRepository(new \App\Menu));
 
         $this->a_rep = $a_rep;
         $this->p_rep = $p_rep;
@@ -30,6 +30,11 @@ class ArticlesController extends SiteController
     //отображение списка статей, в центральной области
     public function index($cat_alias = FALSE)
     {
+
+        // Можно добавить описание в мета всего блока
+        $this->title = 'Блок';
+        $this->keywords = 'String';
+        $this->meta_desc= 'String';
 
         //список статей
         $articles = $this->getArticles($cat_alias);
@@ -58,6 +63,11 @@ class ArticlesController extends SiteController
         if ($article) {
             $article->img = json_decode($article->img);
         }
+        // Добавляем описание в мета конкретной статьи
+        $this->title = $article->title;
+        $this->keywords = $article->keywords;
+        $this->meta_desc= $article->meta_desc;
+
 
         $content = view(env('THEME') . '.article_content')->with('article', $article)->render();
         $this->vars = array_add( $this->vars,'content',$content );
@@ -107,7 +117,7 @@ class ArticlesController extends SiteController
             $where = ['category_id', $id];
         }
 
-        $articles = $this->a_rep->get(['id', 'title', 'alias', 'created_at', 'img', 'desc', 'user_id', 'category_id'], FALSE, TRUE, $where);
+        $articles = $this->a_rep->get(['id', 'title', 'alias', 'created_at', 'img', 'desc', 'user_id', 'category_id','keywords','meta_desc'], FALSE, TRUE, $where);
 
         if ($articles) {
             //оптимизация запросов к бд

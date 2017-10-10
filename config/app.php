@@ -151,10 +151,10 @@ return [
         /*
          * Application Service Providers...
          */
-        Corp\Providers\AppServiceProvider::class,
-        Corp\Providers\AuthServiceProvider::class,
-        Corp\Providers\EventServiceProvider::class,
-        Corp\Providers\RouteServiceProvider::class,
+        App\Providers\AppServiceProvider::class,
+        App\Providers\AuthServiceProvider::class,
+        App\Providers\EventServiceProvider::class,
+        App\Providers\RouteServiceProvider::class,
 
         'Lavary\Menu\ServiceProvider',
 

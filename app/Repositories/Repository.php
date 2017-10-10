@@ -1,5 +1,5 @@
 <?php
-namespace Corp\Repositories;
+namespace App\Repositories;
 
 use Config;
 

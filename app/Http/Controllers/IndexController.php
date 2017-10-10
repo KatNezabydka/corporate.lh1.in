@@ -1,15 +1,16 @@
 <?php
 
-namespace Corp\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Corp\Http\Requests;
+use App\Http\Requests;
 
-use Corp\Repositories\SlidersRepository;
-use Corp\Repositories\PortfoliosRepository;
-use Corp\Repositories\ArticlesRepository;
+use App\Repositories\SlidersRepository;
+use App\Repositories\PortfoliosRepository;
+use App\Repositories\ArticlesRepository;
 use Config;
+use Illuminate\Support\Facades\Cookie;
 
 
 /**
@@ -20,13 +21,15 @@ class IndexController extends SiteController
     //в параметрах внедряем зависсимость
     public function __construct(SlidersRepository $s_rep,PortfoliosRepository  $p_rep, ArticlesRepository $a_rep)
     {
-        parent::__construct(new \Corp\Repositories\MenusRepository(new \Corp\Menu));
+        parent::__construct(new \App\Repositories\MenusRepository(new \App\Menu));
 
         $this->a_rep = $a_rep;
         $this->s_rep = $s_rep;
         $this->p_rep = $p_rep;
         //показываем что на главной странице, что там есть правый бар
         $this->bar = 'right';
+
+        $this->middleware('web');
         //указываем имя страницы
         $this->template = env('THEME') . '.index';
     }
@@ -39,6 +42,7 @@ class IndexController extends SiteController
      */
     public function index()
     {
+
         //на главной странице есть еще информация о работах компании - портфолио
         //только их много, отображать нужно только 4
         $portfolios = $this->getPortfolio();
@@ -66,6 +70,7 @@ class IndexController extends SiteController
         $articles = $this->getArticles();
 
         $this->contentRightBar = view(env('THEME') . '.indexBar')->with('articles', $articles)->render();
+
 
         return $this->renderOutput();
 

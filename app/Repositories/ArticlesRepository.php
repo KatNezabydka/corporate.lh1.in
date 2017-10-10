@@ -1,7 +1,7 @@
 <?php
-namespace Corp\Repositories;
+namespace App\Repositories;
 
-use Corp\Article;
+use App\Article;
 
 class ArticlesRepository extends Repository {
 

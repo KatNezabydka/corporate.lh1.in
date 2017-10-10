@@ -3,6 +3,7 @@
 
 {{--в li добавили id чтобы работала кнопка Ответить на коммент--}}
 {{--добавили в класс условие, чтобы выделить коммент, который оставляет автор статьи данной--}}
+{{--<li id="li-comment-{{$item->id}}" class="comment even {{ ($item->user_id == $article->user_id) ? 'bypostauthor odd' : ''}}">--}}
 <li id="li-comment-{{$item->id}}" class="comment even {{ ($item->user_id == $article->user_id) ? 'bypostauthor odd' : ''}}">
     <div id="comment-{{$item->id}}" class="comment-container">
         <div class="comment-author vcard">

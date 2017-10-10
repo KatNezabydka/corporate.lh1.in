@@ -1,6 +1,6 @@
 <?php
 
-namespace Corp;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,6 +12,6 @@ class Category extends Model
      * получаем записи, которые принадлежат конкретной категории
      */
     public function articles() {
-        return $this->hasMany('Corp\Article');
+        return $this->hasMany('App\Article');
     }
 }

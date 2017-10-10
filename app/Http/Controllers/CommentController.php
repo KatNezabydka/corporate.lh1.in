@@ -1,15 +1,15 @@
 <?php
 
-namespace Corp\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Corp\Http\Requests;
+use App\Http\Requests;
 use Illuminate\Http\Response;
 use Validator;
 use Auth;
-use Corp\Comment;
-use Corp\Article;
+use App\Comment;
+use App\Article;
 
 class CommentController extends SiteController
 {
@@ -103,8 +103,8 @@ class CommentController extends SiteController
 
         $view_comment = view(env('THEME').'.content_one_comment')->with('data', $data)->render();
 
-//        return \Response::json(['success' => TRUE, 'comment' => $view_comment, 'data' => $data]);
-        return \Response::json(['success' => TRUE, 'comment' => "fgfgdfgdfg", 'data' => $data]);
+        return \Response::json(['success' => TRUE, 'comment' => $view_comment, 'data' => $data]);
+
     }
 
     /**

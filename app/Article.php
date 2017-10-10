@@ -1,6 +1,6 @@
 <?php
 
-namespace Corp;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -12,7 +12,7 @@ class Article extends Model
      * Получим информацию о том, кто добавил запись
      */
     public function user() {
-        return $this->belongsTo('Corp\User');
+        return $this->belongsTo('App\User');
     }
 
 
@@ -23,7 +23,7 @@ class Article extends Model
      */
 
     public function category() {
-        return $this->belongsTo('Corp\Category');
+        return $this->belongsTo('App\Category');
     }
 
     /**
@@ -33,7 +33,7 @@ class Article extends Model
      */
 
     public function comments() {
-        return $this->hasMany('Corp\Comment');
+        return $this->hasMany('App\Comment');
     }
 
 }

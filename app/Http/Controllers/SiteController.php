@@ -1,14 +1,17 @@
 <?php
 
-namespace Corp\Http\Controllers;
+namespace App\Http\Controllers;
 
-use Corp\Repositories\MenusRepository;
+use App\Repositories\MenusRepository;
 use Illuminate\Http\Request;
 
 
-use Corp\Http\Requests;
+use App\Http\Requests;
 
 use Menu;
+use Illuminate\Support\Facades\Cookie;
+use Illuminate\Http\Response;
+use Illuminate\Cookie\CookieJar;
 
 
 /**
@@ -48,7 +51,15 @@ class SiteController extends Controller
     {
         $this->m_rep = $m_rep;
 
+
+//        $cook = new CookieJar();
+//        return response('Hello World')->withCookie(
+//            'name', 'value', time() + 3600);
+
     }
+
+
+
 
     /**
      * Отображаем конкретный вид на экране
@@ -84,7 +95,6 @@ class SiteController extends Controller
         //футер
         $footer = view(env('THEME') . '.footer')->render();
         $this->vars = array_add($this->vars, 'footer', $footer);
-
         //имя шаблона и список параметров, передаваемых в вид
         return view($this->template)->with($this->vars);
     }

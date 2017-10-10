@@ -1,6 +1,6 @@
 <?php
 
-namespace Corp;
+namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -30,7 +30,7 @@ class User extends Authenticatable
      * выборка статей, добавленных конкретным пользователем
      */
     public function articles() {
-        return $this->hasMany('Corp\Article');
+        return $this->hasMany('App\Article');
     }
 
     /**
@@ -40,6 +40,6 @@ class User extends Authenticatable
      */
 
     public function comment() {
-        return $this->hasMany('Corp\Comment');
+        return $this->hasMany('App\Comment');
     }
 }

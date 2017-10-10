@@ -1,7 +1,7 @@
 <?php
-namespace Corp\Repositories;
+namespace App\Repositories;
 
-use Corp\Menu;
+use App\Menu;
 
 class MenusRepository extends Repository {
 

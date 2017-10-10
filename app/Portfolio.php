@@ -1,6 +1,6 @@
 <?php
 
-namespace Corp;
+namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -18,7 +18,7 @@ class Portfolio extends Model
         //1) Модель таблицы, с которой идет связь
         //2) поле внешнего ключа в таблице portfolio (наша таблица)
         //3) поле внешнего ключа в таблице filter (которая связывается с нашей таблицей)
-        return $this->belongsTo('Corp\Filter', 'filter_alias', 	'alias');
+        return $this->belongsTo('App\Filter', 'filter_alias', 	'alias');
     }
 
 }

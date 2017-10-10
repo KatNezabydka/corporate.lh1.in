@@ -1,10 +1,10 @@
 <?php
 
-namespace Corp\Http\Controllers;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Corp\Http\Requests;
+use App\Http\Requests;
 
 class PortfolioController extends Controller
 {

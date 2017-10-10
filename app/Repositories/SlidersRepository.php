@@ -1,7 +1,7 @@
 <?php
-namespace Corp\Repositories;
+namespace App\Repositories;
 
-use Corp\Slider;
+use App\Slider;
 
 class SlidersRepository extends Repository {
 
