@@ -8,5 +8,8 @@ return [
     'articles_no' => '<h2>Записей нет</h2>',
     'latest_comments' => 'Последние комментарии',
     'replay' => 'Ответить',
+    'Filter' => 'Фильтр',
+    'Customer' => 'Заказчик',
+    'Year' => 'Год',
 
 ];
