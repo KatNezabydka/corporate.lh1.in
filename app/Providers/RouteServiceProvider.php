@@ -24,7 +24,8 @@ class RouteServiceProvider extends ServiceProvider
      */
     public function boot(Router $router)
     {
-        //
+        //Прописываем регулярные выражения для проверки маршрутов с псевдонимом alias (в роутере с типом recourse)
+        $router->pattern('alias', '[\w-]+');
 
         parent::boot($router);
     }

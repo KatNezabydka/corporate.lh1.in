@@ -23,6 +23,8 @@
 ////
 //Route::get('/home', 'HomeController@index');
 //
+Route::auth();
+
 Route::resource('/','IndexController',[
                                     'only' => ['index'],
                                     'names' => [
@@ -47,13 +49,11 @@ Route::resource('articles','ArticlesController',[
                                                         'articles' => 'alias'
                                                 ]
                                                 ]);
-
-Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'as' => 'articlesCar']);
+//w - любое слово (проверяем строку статьи на валидность)
+Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'as' => 'articlesCar'])->where('cat_alias', '[\w-]+');
 
 
 Route::resource('comment','CommentController',['only' =>['store']]);
 
-//
-//Route::auth();
-//
-//Route::get('/home', 'HomeController@index');
+Route::match(['get','post'],'/contacts',['uses'=>'ContactsController@index', 'as'=>'contacts']);
+//Route::post('/sendmail.PHP',['uses'=>'ContactsController@index', 'as'=>'contacts']);

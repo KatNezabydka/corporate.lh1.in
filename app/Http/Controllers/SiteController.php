@@ -83,6 +83,14 @@ class SiteController extends Controller
             // добавляем в шаблон для отображения
             $this->vars = array_add($this->vars, 'rightBar', $rightBar);
         }
+
+        // левый бар
+        if ($this->contentLeftBar) {
+            $leftBar = view(env('THEME') . '.leftBar')->with('content_leftBar', $this->contentLeftBar)->render();
+            // добавляем в шаблон для отображения
+            $this->vars = array_add($this->vars, 'leftBar', $leftBar);
+        }
+
         //здесь передаем значение bar - будет ли оно вообще отображаться/слева/справа
         $this->vars = array_add($this->vars, 'bar', $this->bar);
 
