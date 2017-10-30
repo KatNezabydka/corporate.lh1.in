@@ -108,7 +108,7 @@ class SiteController extends Controller
     }
 
     //Все, что касается меню
-    protected function getMenu()
+    public function getMenu()
     {
         //lavary/laravel-menu - используем расширение
         //получили колекцию моделей
