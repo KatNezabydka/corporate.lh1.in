@@ -28,6 +28,9 @@ class AuthController extends Controller
      *
      * @var string
      */
+    //определили закрыое свойство
+    protected $loginView;
+
     protected $redirectTo = '/';
 
     /**
@@ -38,7 +41,23 @@ class AuthController extends Controller
     public function __construct()
     {
         $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
+    // Храним имя макета
+        $this->loginView = env('THEME').'.login';
     }
+
+    public function showLoginForm()
+    {
+        $view = property_exists($this, 'loginView')
+            ? $this->loginView : '';
+
+        if (view()->exists($view)) {
+            //with - позволяет передать в макет переменные
+            return view($view);
+        }
+
+        dd( $view);
+    }
+
 
     /**
      * Get a validator for an incoming registration request.

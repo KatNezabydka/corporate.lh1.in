@@ -158,6 +158,17 @@
         </div>
         <!-- END PAGE META -->
         @endif
+        @if(Route::currentRouteName() == 'contacts')
+        <!-- START PAGE META -->
+            <div id="page-meta">
+                <div class="inner group">
+                    <h3>...Say Hello! :)</h3>
+                    <h4>Get in touch with Pink Rio team</h4>
+                </div>
+            </div>
+            <!-- END PAGE META -->
+        @endif
+
 
         <!-- START PRIMARY -->
         {{--ИМЕННО ЗДЕСЬ МОДЖНО УБРАТЬ ПРАВЫЙ САЙТ-БАР sidebar-no--}}

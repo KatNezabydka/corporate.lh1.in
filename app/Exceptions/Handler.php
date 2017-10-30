@@ -45,6 +45,26 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $e)
     {
+        //если в $e содержится класс, который относится к группе isHttpException - мы пропишем свой путь к файлу 404
+        if($this->isHttpException($e)){
+           $statusCode = $e->getStatusCode(); //вернет код конкретного исключения
+            //если ошибка 404 тогда перенаправим на нужную страницу
+            switch ($statusCode) {
+                case '404':
+                    //$obj создали просто обьект класса SiteController для того, чтобы обратиться к его методу getMenu (для того, чтобы сделать меню на страничке 404)
+                    $obj = new \App\Http\Controllers\SiteController(new \App\Repositories\MenusRepository(new \App\Menu));
+
+                    //это готовая панель навигации
+                    $navigation = view(env('THEME') . '.navigation')->with('menu', $obj->getMenu())->render();
+                    //сформинуем ответ response - вызовим вид view
+                    //в качестве второго аргумента передаем массив параметров, которые будут переданы в макет
+
+                    //Залогировать что страница не найдена и какая не найдена покажем
+                    \Log::alert('Страница не найдена - '.$request->url());
+                    return response()->view(env('THEME').'.404',['bar'=> 'no', 'title'=> 'Страница не найдена', 'navigation'=> $navigation]);
+            }
+        }
+
         return parent::render($request, $e);
     }
 }
