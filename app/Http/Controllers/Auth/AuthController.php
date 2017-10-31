@@ -30,8 +30,9 @@ class AuthController extends Controller
      */
     //определили закрыое свойство
     protected $loginView;
+    protected $username = 'login';
 
-    protected $redirectTo = '/';
+    protected $redirectTo = '/admin';
 
     /**
      * Create a new authentication controller instance.
@@ -52,12 +53,11 @@ class AuthController extends Controller
 
         if (view()->exists($view)) {
             //with - позволяет передать в макет переменные
-            return view($view);
+            return view($view)->with('title','Вход на сайт');
         }
 
-        dd( $view);
+      abort(404);
     }
-
 
     /**
      * Get a validator for an incoming registration request.
