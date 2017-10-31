@@ -42,11 +42,9 @@ class ContactsController extends SiteController
                 'name' => 'required|max:255',
                 'email' => 'required|email',
                 'text' => 'required',
-            ]/*, $messages*/);
-//            dd($request); - нет валидации
+            ], $messages);
 //            //все данные массива сохраняем в переменную data
             $data = $request->all();
-//            dd($data);
             //отправка сообщений
             //use ($data) - пишем, если хотим использовать значение этой переменной - данные с отправляемой формы
             $result = Mail::send(env('THEME') . '.email', ['data' => $data], function ($m) use ($data) {
@@ -58,9 +56,9 @@ class ContactsController extends SiteController
             });
 
             if ($result) {
-//                return redirect()->back();
                 //with('status', 'Email is send') - записываем в сессию в ячейку status значение Email is send
-                return redirect()->route('contacts')->with('status', 'Email is send');
+                $res = redirect()->route('contacts')->with('status', 'Email is send');
+                return $res;
             }
         }
 

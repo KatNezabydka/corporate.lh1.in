@@ -1,3 +1,4 @@
+
 jQuery(document).ready(function ($) {
     //пронумеровали список комментариев
     $('.commentlist li').each(function (i) {

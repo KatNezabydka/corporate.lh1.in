@@ -1,13 +1,14 @@
+
+
 @if (count($errors) > 0)
     <div class="box error-box">
-
         @foreach($errors->all() as $error)
-            <p>{{$error}}</p>
+            {{$error}}
             @endforeach
-
     </div>
     @endif
-{{dump(session('status'))}}
+
+
     @if (session('status'))
         <div class="box success-box">
             {{ session('status') }}
@@ -17,8 +18,9 @@
 
 <div id="content-page" class="content group">
     <div class="hentry group">
-        <form id="contact-form-contact-us" class="contact-form" method="post" action="{{route('contacts')}}" {{--<enctype="multipart/form-data">--}}>
+        <form id="contact-form-contact-us" class="contact-form" method="post" action="{{url('/contacts')}}" {{--<enctype="multipart/form-data">--}}>
             <div class="usermessagea"></div>
+            {{ csrf_field() }}
             <fieldset>
                 <ul>
                     <li class="text-field">
@@ -45,12 +47,7 @@
                         <div class="msg-error"></div>
                     </li>
                     <li class="submit-button">
-                        {{--<input type="text" name="yit_bot" id="yit_bot" />--}}
-                        {{--<input type="hidden" name="yit_action" value="sendmail" id="yit_action" />--}}
-                        {{--<input type="hidden" name="yit_referer" value="http://yourinspirationtheme.com/demo/pinkrio/corporate/contact/" />--}}
-                        {{--<input type="hidden" name="id_form" value="126" />--}}
                         <input type="submit" name="yit_sendmail" value="Send Message" class="sendmail alignright" />
-                        {{ csrf_field() }}
                     </li>
                 </ul>
             </fieldset>

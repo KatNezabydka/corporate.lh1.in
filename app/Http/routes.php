@@ -55,7 +55,6 @@ Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'a
 Route::resource('comment','CommentController',['only' =>['store']]);
 
 Route::match(['get','post'],'/contacts',['uses'=>'ContactsController@index', 'as'=>'contacts']);
-//Route::post('/sendmail.PHP',['uses'=>'ContactsController@index', 'as'=>'contacts']);
 
 
 //Route::auth();
