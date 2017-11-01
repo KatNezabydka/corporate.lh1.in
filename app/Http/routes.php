@@ -61,3 +61,12 @@ Route::match(['get','post'],'/contacts',['uses'=>'ContactsController@index', 'as
 Route::get('login','Auth\AuthController@showLoginForm');
 Route::post('login','Auth\AuthController@login');
 Route::get('logout','Auth\AuthController@logout');
+
+//admin
+//'middleware' => 'auth' - для того, чтобы доступ в данный раздел могли получить только зарегестрированные пользователи
+Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
+    //admin - главная страница
+    Route::get('/',['uses' => 'Admin\IndexController@index','as'=>'adminIndex']);
+    Route::resource('/articles','Admin\ArticlesController');
+
+});

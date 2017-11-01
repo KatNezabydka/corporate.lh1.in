@@ -6,7 +6,7 @@
     <div id="content-page" class="content group">
         <div class="hentry group">
 
-            <form id="contact-form-contact-us" class="contact-form" method="POST" action="{{url('/login')}}">
+            <form id="contact-form-contact-us" class="contact-form" method="POST" action="">
                 {{ csrf_field() }}
                 <fieldset>
                     <ul>

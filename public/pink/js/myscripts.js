@@ -23,7 +23,7 @@ jQuery(document).ready(function ($) {
                 type: 'POST',
                 datatype: 'JSON',
                 success: function (html) {
-                    var html = JSON.parse(html);
+                    // var html = JSON.parse(html);
 
                     if (html.error) {
 

@@ -29,17 +29,27 @@ class User extends Authenticatable
      * User и Article - связь многие к одному - один юзер может добавить много записей
      * выборка статей, добавленных конкретным пользователем
      */
-    public function articles() {
+    public function articles()
+    {
         return $this->hasMany('App\Article');
     }
 
     /**
      * Users и Comment - многие к одному - один юзер может написать много комментов
-
      * получаем комменты, которые привязанны к конкретному пользователю
      */
 
-    public function comment() {
+    public function comment()
+    {
         return $this->hasMany('App\Comment');
     }
+
+    // Связь с моделью role многие ко многим
+    public function roles()
+    {
+        //c какой моделью связь, и через какую таблицу
+        return $this->belongsToMany('App\Role', 'role_user');
+    }
+
+
 }
