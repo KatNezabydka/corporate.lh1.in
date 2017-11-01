@@ -25,7 +25,14 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(GateContract $gate)
     {
         $this->registerPolicies($gate);
-
+        //регистрируем условие для проверки прав и привилегий пользователя
+        //$user - объект модели User
+        $gate->define('VIEW_ADMIN', function($user) {
+            //canDo() - вернет true, если у пользователя есть право
+            //если передали массив и поставили TRUE - значит должны быть все права из массива
+            //если поставили FALSE в массиве - то должно быть хотя бы одно поле
+                return $user->canDo(['VIEW_ADMIN'], FALSE);
+        });
         //
     }
 }
