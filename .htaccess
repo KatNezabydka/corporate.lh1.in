@@ -1,0 +1,5 @@
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^corporate.lh1.in$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www.corporate.lh1.in$
+RewriteCond %{REQUEST_URI} !public/
+RewriteRule (.*) /public/$1 [L]
