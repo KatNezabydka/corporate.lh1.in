@@ -76,7 +76,7 @@
     <!-- JAVASCRIPTs -->
     {{--Докачать 2 файла js--}}
     <script type="text/javascript" src="{{asset(env('THEME')) }}/js/jquery.js"></script>
-    <script type="text/javascript" src="{{asset(env('THEME')) }}/js/ckeditor.js"></script>
+    <script type="text/javascript" src="{{asset(env('THEME')) }}/js/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="{{asset(env('THEME')) }}/js/bootstrap-filestyle.min.js"></script>
 
 
@@ -147,7 +147,7 @@
         @endif
 
         @if (session('error'))
-            <div class="box success-box">
+            <div class="box error-box">
                 {{ session('error') }}
             </div>
         @endif

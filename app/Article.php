@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Article extends Model
 {
+    // поля, которые разрешенны к массовому заполнению
+    protected $fillable = ['title','img','alias','text','desc','keywords','meta_desc','category_id'];
     /**
      * Article и User - один ко многим - одна запись привязанна к конкретному пользователю
      * но у пользователя может быть много записей

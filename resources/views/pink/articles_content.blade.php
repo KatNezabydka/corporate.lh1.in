@@ -38,7 +38,7 @@
                 </div>
                 <!-- post content -->
                 <div class="the-content group">
-                    {{ $article->desc }}
+                    {!!  $article->desc !!}
                     <p><a href=" {{route('articles.show',['alias' =>  $article->alias])}}"
                           class="btn   btn-beetle-bus-goes-jamba-juice-4 btn-more-link">→ {{Lang::get('ru.read_more')}}</a>
                     </p>

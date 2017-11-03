@@ -47,7 +47,7 @@
                         <div class="msg-error"></div>
                     </li>
                     <li class="submit-button">
-                        <input type="submit" name="yit_sendmail" value="Send Message" class="sendmail alignright" />
+                        <input type="submit" name="yit_sendmail" value="{{Lang::get('ru.email_send')}}" class="sendmail alignright" />
                     </li>
                 </ul>
             </fieldset>

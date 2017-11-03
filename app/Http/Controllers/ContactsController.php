@@ -8,6 +8,7 @@ use App\Http\Requests;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\DB;
 use Validator;
+use Illuminate\Support\Facades\Lang;
 
 class ContactsController extends SiteController
 {
@@ -57,7 +58,7 @@ class ContactsController extends SiteController
 
             if ($result) {
                 //with('status', 'Email is send') - записываем в сессию в ячейку status значение Email is send
-                $res = redirect()->route('contacts')->with('status', 'Email is send');
+                $res = redirect()->route('contacts')->with('status', Lang::get('ru.email_is_send'));
                 return $res;
             }
         }
