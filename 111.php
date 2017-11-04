@@ -48,3 +48,48 @@ unlink($zip_name);
 
 //ВСТРОЕННАЯ БИБЛИОТЕКА ДЛЯ РАБОТЫ с рассылкой phpmailer
 
+$site['from_name'] = 'Имя отправителя';
+$site['from_email'] = 'email@ukr.net';
+
+//если находимся на другом smtp
+$site['smtp_mode'] = 'disabled';
+$site['smtp_host'] = null;
+$site['smtp_port'] = null;
+$site['smtp_username'] = null;
+
+//дополняем стандартный класс..нужно подключить только библиотеку PHPMailer
+class OurMailer extends \PHPMailer{
+    //приоритет почты по умолчанию 1-высоко, 3-нормально, 5-низко
+    var $priority = 3;
+    var $to_name;
+    var $to_email;
+    var $From;
+    var $FromName;
+
+    function FreeMailer(){
+        global $site; // наши настройки
+
+        if ($site['smtp_mode'] == 'enabled'){
+            $this->Host = $site['smtp_host'];
+            $this->Port = $site['smtp_port'];
+            if($site['smtp_username'] !=''){
+                $this->SMTPAuth = true;
+                $this->Username = $site['smtp_username'];
+                $this->Password = $site['smtp_password'];
+            }
+            $this->Mailer = 'smtp';
+        }
+
+        if($this->From)
+            $this->From = $site['from_email'];
+        if($this->FromName)
+            $this->FromName = $site['from_name'];
+        if($this->Sender)
+            $this->Sender = $site['from_name'];
+
+        $this->Priority = $this->priority;
+
+    }
+
+
+}
