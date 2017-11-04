@@ -31,6 +31,18 @@ class ArticleRequest extends Request
 
         // 3й параметр функция($input - объект с входными данными), если вернет true - то условия валидации будут выполняться
         $validator->sometimes('alias', 'unique:articles|max:255', function ($input) {
+
+            //ИЗМЕНЯЕМ УСЛОВИЯ, ЧТОБЫ МОГЛИ РЕДАКТИРОВАТЬ ЗАПИСЬ ОСТАВЛЯЯ ALIAS ТЕМ ЖЕ
+
+            //получаем доступ к текущему маршруту
+            if ($this->route()->hasParameter('articles')) {
+                //в $model выборка интересующего материала из бд - того, который мы редактируем
+                $model = $this->route()->parameter('articles');
+                //$input->alias - тот псевдоним, который пользователь вводит
+                //$model->alias - тот псевдоним, который уже есть в модели
+                //так вот мы вернем true только если они не равны и ввели псевдоним
+                return ($model->alias !== $input->alias) && !empty($input->alias);
+            }
             return !empty($input->alias);
         });
         //Возвращаем объект валидатора - который валидует поле ALIAS при добавлении новой статьи

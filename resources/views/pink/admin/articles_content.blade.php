@@ -22,16 +22,16 @@
                         <tr>
                             <td class="align-left">{{ $article->id }}</td>
                             {{--чтобы показать имя в виде ссылки на редактирование--}}
-                            <td class="align-left">{!! Html::link(route('admin.articles.edit',['articles'=>$article])) !!}</td>
+                            <td class="align-left">{!! Html::link(route('admin.articles.edit',['articles'=>$article->alias]),$article->title) !!}</td>
                             <td class="align-left">{!!  str_limit($article->text,200) !!}</td>
                             <td>
                                 @if(isset($article->img->mini))
-                                    {{--изображение кодируется в формате json d Repository метод check()--}}
+                                    {{--изображение кодируется в формате json в Repository метод check()--}}
                                     {!! Html::image(asset(env('THEME')).'/images/articles/'.$article->img->mini) !!}
                                     @endif
                             </td>
                             <td>{{$article->category->title}}</td>
-                            <td>{{$article->category->alias}}</td>
+                            <td>{{$article->alias}}</td>
                             <td>
                                 {!! Form::open(['url' => route('admin.articles.destroy',['articles' =>$article->alias]),'class' => 'form-horizontal','method' => 'POST']) !!}
                                 {{--функция-хелпер, которая ообщает laravel что отправляем запрос delete--}}

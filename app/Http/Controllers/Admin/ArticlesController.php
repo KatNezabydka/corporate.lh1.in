@@ -12,6 +12,7 @@ use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
 use App\Category;
+use App\Article;
 
 class ArticlesController extends AdminController
 {
@@ -75,7 +76,7 @@ class ArticlesController extends AdminController
     {
         //Проверяем есть ли у пользователя права на добавление article save - проверяемое действие, условие будем формировать в класе политике безопасности \App\Article
         //создали класс политики безопасности php artisan make:policy ArticlesPolicy
-        if (Gate::denies('save', new \App\Article)) {
+        if (Gate::denies('save', new Article)) {
             abort(403);
 
         }
@@ -152,9 +153,44 @@ class ArticlesController extends AdminController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    //Внедрение зависимости, можно было в коде написать $article = Article::where('alias', $alias); где $alias - аргумент функции
+    //но мы напишем в аргументы $article - и это будет модель редактируемого материала
+
+    public function edit(Article $article)
     {
-        //
+        //dd($article) - вернет модель, но пустую, потому что ожидает он ее по идентификатору, а мы выводим по alias
+        //проверяем есть ли у пользователя права на выполнение данного материала
+        if(Gate::denies('edit', new Article)) {
+            abort(403);
+        }
+
+        //переводим изображение в объект, чтобы могли работать с ним
+        $article->img = json_decode($article->img);
+
+        //получаем категории из таблицы
+        $categories = Category::select('title', 'alias', 'parent_id', 'id')->get();
+        // формируем выпадающий списток с группами  документации collective расширение для html и forms
+        //выпадающий список select с групами
+        $lists = array();
+
+        foreach ($categories as $category) {
+            //значит это родительская категория
+            if ($category->parent_id == 0) {
+                $lists[$category->title] = array();
+            }
+
+            //если это модель дочерней категории
+            //where - в категориях найдем конкретную модель у которой id находится значение родителя
+            //но whereвозвращает коллекцию, но мы знаем что у дочерней модели может быть только один родитель
+            /// а значит выбираем first()
+            else {
+                $lists[$categories->where('id', $category->parent_id)->first()->title][$category->id] = $category->title;
+            }
+        }
+        $this->title = 'Редактирование материала - '. $article->title;
+
+        $this->content = view(env('THEME') . '.admin.articles_create_content')->with(['article'=>$article ,'categories'=> $lists])->render();
+        return $this->renderOut();
     }
 
     /**
@@ -164,9 +200,24 @@ class ArticlesController extends AdminController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    //Внедряем зависимость для метода update (объект модели Article)
+    //При этом в сервис провайдере RouteServiceProvider мы связали параметр articles с моделью Article
+
+    public function update(ArticleRequest $request, Article $article)
     {
-        //
+        //Article $article - сформированная модель
+        //ArticleRequest $request - новые данные, которые нужно заменить
+        //ArticleRequest но он валидирует alias, чтобы его ввели уникальным, а здесь мы хотим только отредактировать..так что немного переделаем валидацию
+        //addArticle - созранит информацию о новом материале (будет возвращать array)
+        $result = $this->a_rep->updateArticle($request,$article);
+        //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
+        if (is_array($result) && !empty($result['error'])) {
+            //with - возвращает в сессию информацию
+            return back()->with($result);
+        }
+        //иначе делаем редирект на главную страницу админа с сообщением что ве успешно
+        return redirect('/admin')->with($result);
+
     }
 
     /**
