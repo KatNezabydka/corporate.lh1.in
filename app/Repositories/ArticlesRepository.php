@@ -220,7 +220,6 @@ class ArticlesRepository extends Repository
         if (Gate::denies('destroy', $article)) {
             abort(403);
         }
-
         //Удаляем комментарии
         // $article->comments() - это метод в модели Article для доступа к комментариям, что привязвнны к статьи
         // и возвращает обьект конструктора запроса - обьект, который представляет конкретную связь
@@ -231,5 +230,6 @@ class ArticlesRepository extends Repository
             return ['status' => 'Материал удален'];
         }
     }
+
 
 }

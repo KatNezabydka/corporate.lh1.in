@@ -23,5 +23,8 @@ return [
     'password_field' => 'Поле для ввода пароля',
     'no_data' => 'Нет данных',
 
+    'permissions' => 'Привилегии',
+    'update' => 'Обновить',
+
 
 ];

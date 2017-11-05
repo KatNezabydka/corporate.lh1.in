@@ -3344,60 +3344,6 @@
         "homepage": "http://laravelcollective.com"
     },
     {
-        "name": "lavary/laravel-menu",
-        "version": "dev-master",
-        "version_normalized": "9999999-dev",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/lavary/laravel-menu.git",
-            "reference": "772800ab87d4496f16891758b8c303e5f75faf1d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/lavary/laravel-menu/zipball/772800ab87d4496f16891758b8c303e5f75faf1d",
-            "reference": "772800ab87d4496f16891758b8c303e5f75faf1d",
-            "shasum": ""
-        },
-        "require": {
-            "illuminate/support": ">=5.0",
-            "illuminate/view": ">=5.0",
-            "php": ">=5.4.0"
-        },
-        "time": "2017-10-30T16:48:59+00:00",
-        "type": "library",
-        "extra": {
-            "laravel": {
-                "providers": [
-                    "Lavary\\Menu\\ServiceProvider"
-                ],
-                "aliases": {
-                    "Menu": "Lavary\\Menu\\Facade"
-                }
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Lavary\\Menu\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Lavary",
-                "email": "mrl.8081@gmail.com"
-            }
-        ],
-        "description": "A quick way to create menus in Laravel 5",
-        "homepage": "https://github.com/lavary/laravel-menu",
-        "keywords": [
-            "laravel"
-        ]
-    },
-    {
         "name": "psr/http-message",
         "version": "1.0.1",
         "version_normalized": "1.0.1.0",
@@ -3586,6 +3532,60 @@
             "laravel",
             "thumbnail",
             "watermark"
+        ]
+    },
+    {
+        "name": "lavary/laravel-menu",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lavary/laravel-menu.git",
+            "reference": "219d26543d60fdcd33873114d5a52b2bd4e15884"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lavary/laravel-menu/zipball/219d26543d60fdcd33873114d5a52b2bd4e15884",
+            "reference": "219d26543d60fdcd33873114d5a52b2bd4e15884",
+            "shasum": ""
+        },
+        "require": {
+            "illuminate/support": ">=5.0",
+            "illuminate/view": ">=5.0",
+            "php": ">=5.4.0"
+        },
+        "time": "2017-11-03T21:23:41+00:00",
+        "type": "library",
+        "extra": {
+            "laravel": {
+                "providers": [
+                    "Lavary\\Menu\\ServiceProvider"
+                ],
+                "aliases": {
+                    "Menu": "Lavary\\Menu\\Facade"
+                }
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Lavary\\Menu\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Lavary",
+                "email": "mrl.8081@gmail.com"
+            }
+        ],
+        "description": "A quick way to create menus in Laravel 5",
+        "homepage": "https://github.com/lavary/laravel-menu",
+        "keywords": [
+            "laravel"
         ]
     }
 ]

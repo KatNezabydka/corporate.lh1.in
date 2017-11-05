@@ -68,7 +68,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //admin - главная страница
     Route::get('/',['uses' => 'Admin\IndexController@index','as'=>'adminIndex']);
     //параметры данного маршрута формируются как articles
+    //admin - Статьи
     Route::resource('/articles','Admin\ArticlesController');
     Route::post('/articles/create','Admin\ArticlesController@create');
+    //admin - Привилегии
+    Route::resource('/permissions','Admin\PermissionsController');
+
+
 
 });

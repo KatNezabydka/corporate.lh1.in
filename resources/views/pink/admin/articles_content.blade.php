@@ -6,7 +6,7 @@
                 <table style="width: 100%" cellspacing="0" cellpadding="0">
                     <thead>
                     <tr>
-                        <th class="'align-left">ID<</th>
+                        <th class="'align-left">ID</th>
                         <th>Заголовок</th>
                         <th>Текст</th>
                         <th>Изображение</th>
@@ -36,7 +36,7 @@
                                 {!! Form::open(['url' => route('admin.articles.destroy',['articles' =>$article->alias]),'class' => 'form-horizontal','method' => 'POST']) !!}
                                 {{--функция-хелпер, которая ообщает laravel что отправляем запрос delete--}}
                                 {{ method_field('DELETE') }}
-                                {!! Form::button('Удалить',['class' => 'btn btn-french-5','type' => 'submit']) !!}
+                                {!! Form::button('Удалить',['class' => 'btn btn-french-5','type' => 'submit', 'onclick' => "return confirm('Вы точно хотите удалить модель из списка?')"]) !!}
                                 {!! Form::close() !!}
                             </td>
                         </tr>
