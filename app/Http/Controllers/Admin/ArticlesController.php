@@ -225,9 +225,18 @@ class ArticlesController extends AdminController
      *
      * @param  int $id
      * @return \Illuminate\Http\Response
+     * у нас идет поиск статьи не по id, а по alias - поэтому в аргументах модель
      */
-    public function destroy($id)
+    public function destroy(Article $article)
     {
         //
+        $result = $this->a_rep->deleteArticle($article);
+        //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
+        if (is_array($result) && !empty($result['error'])) {
+            //with - возвращает в сессию информацию
+            return back()->with($result);
+        }
+        //иначе делаем редирект на главную страницу админа с сообщением что ве успешно
+        return redirect('/admin')->with($result);
     }
 }

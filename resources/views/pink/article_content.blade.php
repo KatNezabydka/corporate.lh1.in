@@ -1,6 +1,11 @@
 <div id="content-single" class="content group">
     <div class="hentry hentry-post blog-big group ">
         <!-- post featured & title -->
+        @if(empty($article))
+            <div class="box error-box">
+            <p>{{ Lang::get('ru.no_data') }}</p>
+            </div>
+        @endif
         @if($article)
 
             <div class="thumbnail">
@@ -8,7 +13,8 @@
                 <h1 class="post-title"><a href="#">{{ $article->title }}</a></h1>
                 <!-- post featured -->
                 <div class="image-wrap">
-                    <img src="{{asset(env('THEME'))}}/images/articles/{{ $article->img->max }}" alt="{{Lang::get('ru.empty')}}"
+                    <img src="{{asset(env('THEME'))}}/images/articles/{{ $article->img->max }}"
+                         alt="{{Lang::get('ru.empty')}}"
                          title="{{ $article->title }}"/>
                 </div>
                 <p class="date">
@@ -59,24 +65,24 @@
         </h3>
         {{--Группируем комментарии в древовидную структуру....--}}
         @if(count($article->comments) > 0)
-        @set($com,$article->comments->groupBy('parent_id'))
+            @set($com,$article->comments->groupBy('parent_id'))
 
-        <ol class="commentlist group">
-            {{--Формировать дерево будем для всех элементов, у которых parent_id = 0... Только родители--}}
-            @foreach($com as $k => $comments)
-                @if($k !== 0 )
-                    @break
-                @endif
+            <ol class="commentlist group">
+                {{--Формировать дерево будем для всех элементов, у которых parent_id = 0... Только родители--}}
+                @foreach($com as $k => $comments)
+                    @if($k !== 0 )
+                        @break
+                    @endif
 
-                @include(env('THEME').'.comment',['items' => $comments])
+                    @include(env('THEME').'.comment',['items' => $comments])
 
-            @endforeach
+                @endforeach
 
-        </ol>
+            </ol>
 
-        @endif
+    @endif
 
-        <!-- START TRACKBACK & PINGBACK -->
+    <!-- START TRACKBACK & PINGBACK -->
         <h2 id="trackbacks">Trackbacks and pingbacks</h2>
         <ol class="trackbacklist"></ol>
         <p><em>No trackback or pingback available for this article.</em></p>
@@ -90,28 +96,28 @@
             <form action="{{ route('comment.store') }}" method="post" id="commentform">
 
                 @if(!Auth::check())
-                <p class="comment-form-author"><label for="name">Name</label> <input id="name" name="name"
-                                                                                       type="text" value="" size="30"
-                                                                                       aria-required="true"/></p>
-                <p class="comment-form-email"><label for="email">Email</label> <input id="email" name="email"
-                                                                                      type="text" value="" size="30"
-                                                                                      aria-required="true"/></p>
-                <p class="comment-form-url"><label for="url">Website</label><input id="site" name="site" type="text"
-                                                                                   value="" size="30"/></p>
+                    <p class="comment-form-author"><label for="name">Name</label> <input id="name" name="name"
+                                                                                         type="text" value="" size="30"
+                                                                                         aria-required="true"/></p>
+                    <p class="comment-form-email"><label for="email">Email</label> <input id="email" name="email"
+                                                                                          type="text" value="" size="30"
+                                                                                          aria-required="true"/></p>
+                    <p class="comment-form-url"><label for="url">Website</label><input id="site" name="site" type="text"
+                                                                                       value="" size="30"/></p>
                 @endif
 
                 <p class="comment-form-comment"><label for="text">Your comment</label><textarea id="text"
-                                                                                                   name="text"
-                                                                                                   cols="45"
-                                                                                                   rows="8"></textarea>
+                                                                                                name="text"
+                                                                                                cols="45"
+                                                                                                rows="8"></textarea>
                 </p>
                 <div class="clear"></div>
                 <p class="form-submit">
                     {{ csrf_field() }}
                     {{--к какой записи привязан коммент--}}
-                    <input id ="comment_post_ID" type="hidden" name="comment_post_ID" value="{{ $article->id }}"/>
+                    <input id="comment_post_ID" type="hidden" name="comment_post_ID" value="{{ $article->id }}"/>
                     {{--для какого поля формируется ответ (храним идентификатор родительского коммента)--}}
-                    <input id ="comment_parent" type="hidden" name="comment_parent" value="0"/>
+                    <input id="comment_parent" type="hidden" name="comment_parent" value="0"/>
 
                     <input name="submit" type="submit" id="submit" value="Post Comment"/>
                 </p>

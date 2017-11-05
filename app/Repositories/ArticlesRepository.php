@@ -206,4 +206,30 @@ class ArticlesRepository extends Repository
 
     }
 
+    /**
+     * Удалять материал только тот пользователь, у которого есть права на удаление и только если это ЕГО статья
+     * @param $request
+     * @param $article
+     * @return array
+     */
+    public function deleteArticle($article)
+    {
+
+        //еще раз проверяем есть ли доступ...указываем модель $article
+        //ArticlePolicy
+        if (Gate::denies('destroy', $article)) {
+            abort(403);
+        }
+
+        //Удаляем комментарии
+        // $article->comments() - это метод в модели Article для доступа к комментариям, что привязвнны к статьи
+        // и возвращает обьект конструктора запроса - обьект, который представляет конкретную связь
+        //удаляет коментарии
+        $article->comments()->delete();
+        //если удаление прошло успешно
+        if($article->delete()) {
+            return ['status' => 'Материал удален'];
+        }
+    }
+
 }

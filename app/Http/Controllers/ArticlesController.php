@@ -63,11 +63,17 @@ class ArticlesController extends SiteController
         if ($article) {
             $article->img = json_decode($article->img);
         }
-        // Добавляем описание в мета конкретной статьи
-        $this->title = $article->title;
-        $this->keywords = $article->keywords;
-        $this->meta_desc= $article->meta_desc;
 
+        //условие если статья существует, чтобы не было ошибки, когда мы материал удалили и потом пытаемся зайти на него
+        if(isset($article)){
+            // Добавляем описание в мета конкретной статьи
+            $this->title = $article->title;
+            $this->keywords = $article->keywords;
+            $this->meta_desc= $article->meta_desc;
+        }
+        else {
+            //ВЫВЕСТИ ЧТО НЕТ ДАННЫХ
+        }
 
         $content = view(env('THEME') . '.article_content')->with('article', $article)->render();
         $this->vars = array_add( $this->vars,'content',$content );

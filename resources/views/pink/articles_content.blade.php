@@ -1,4 +1,5 @@
 <div id="content-blog" class="content group">
+
     @if($articles)
 
         @foreach($articles as $article)
