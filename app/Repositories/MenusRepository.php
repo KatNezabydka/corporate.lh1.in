@@ -146,7 +146,7 @@ class MenusRepository extends Repository
                 }
                 break;
 
-            default: dd('fdsfsdfsd');
+            default: back();
         }
 
         //За пределами switch удаляем то, что нам не интересно
@@ -160,6 +160,19 @@ class MenusRepository extends Repository
         if ($menu->fill($data)->update()) {
             return ['status' => Lang::get('ru.update_link')];
         }
+    }
+
+    public function deleteMenu($menu) {
+
+        if (Gate::denies('delete', $this->model)) {
+            abort(403);
+        }
+
+        //delete() - удаляет
+        if($menu->delete()) {
+            return ['status' => Lang::get('ru.delete_link')];
+        }
+
     }
 
 

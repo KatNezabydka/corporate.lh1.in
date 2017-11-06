@@ -5,8 +5,8 @@
         <td> {{ $item->url() }}</td>
 
         <td>
-            {!! Form::open(['irl' => route('admin.menus.destroy',[',menus'=> $item->id]), 'class'=>'form-horizontal','method'=>'POST']) !!}
-            {{method_field('DELETE')}}
+            {!! Form::open(['url' => route('admin.menus.destroy',['menus'=> $item->id]), 'class'=>'form-horizontal','method'=>'POST']) !!}
+            {{ method_field('DELETE') }}
             {!! Form::button('Удалить',['class' => 'btn btn-french-5','type' => 'submit', 'onclick' => "return confirm('Вы точно хотите удалить пункт меню из списка?')"]) !!}
             {!! Form::close()!!}
         </td>

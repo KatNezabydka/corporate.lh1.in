@@ -337,7 +337,7 @@ class MenusController extends AdminController
     public function update(Request $request,\App\Menu $menu)
     {
 
-        //addArticle - созранит информацию о новом материале (будет возвращать array)
+
         $result = $this->m_rep->updateMenu($request, $menu);
         //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
         if (is_array($result) && !empty($result['error'])) {
@@ -355,8 +355,17 @@ class MenusController extends AdminController
      * @param  int $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(\App\Menu $menu)
     {
-        //
+
+        $result = $this->m_rep->deleteMenu($menu);
+        //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
+        if (is_array($result) && !empty($result['error'])) {
+            //with - возвращает в сессию информацию
+            return back()->with($result);
+        }
+        //иначе делаем редирект на главную страницу админа с сообщением что ве успешно
+        return redirect('/admin')->with($result);
+
     }
 }
