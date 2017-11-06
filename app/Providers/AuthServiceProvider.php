@@ -7,8 +7,10 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 
 use App\Article;
 use App\Permission;
+use App\Menu;
 use App\Policies\PermissionPolicy;
 use App\Policies\ArticlePolicy;
+use App\Policies\MenusPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -21,6 +23,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Article::class => ArticlePolicy::class,
         Permission::class => PermissionPolicy::class,
+        Menu::class => MenusPolicy::class,
 
     ];
 
@@ -58,6 +61,7 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('VIEW_ADMIN_MENU', function ($user) {
             return $user->canDo('VIEW_ADMIN_MENU', FALSE);
         });
+
     }
 
 }

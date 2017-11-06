@@ -29,13 +29,14 @@
                 <p class="author"><span>by <a href="#"
                                               title="{{ $article->title}}">{{ $article->user->name }}</a></span></p>
                 <p class="categories"><span>In: <a
-                                href="{{ route('articlesCar',['cat_alias' => $article->category->alias]) }}"
+                                href="{{ route('articlesCat',['cat_alias' => $article->category->alias]) }}"
                                 title="View all posts in {{$article->category->title}}"
                                 rel="category tag">{{$article->category->title}}</a></span></p>
                 <p class="comments"><span><a href="#comments"
                                              title="Comment on This is the title of the first article. Enjoy it.">{{ count($article->comments) ? count($article->comments) : '0'}} {{Lang::choice('ru.comments',count($article->comments))}}</a></span>
                 </p>
             </div>
+
             <!-- post content -->
             <div class="the-content single group">
                 <p> {!! $article->text !!}</p>

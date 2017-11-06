@@ -31,7 +31,8 @@
 
     <!-- [favicon] begin -->
     <link rel="shortcut icon" type="image/x-icon" href="{{asset(env('THEME')) }}/images/favicon.ico"/>
-    <link rel="icon" type="image/x-icon" href="{{asset(env('THEME')) }}/images/favicon.ico"/>
+
+
     <!-- Touch icons more info: http://mathiasbynens.be/notes/touch-icons -->
     <!-- For iPad3 with retina display: -->
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="{{asset(env('THEME')) }}/apple-touch-icon-144x.png"/>
@@ -66,6 +67,7 @@
     <link rel="stylesheet" id="cache-custom-css" href="{{asset(env('THEME')) }}/css/cache-custom.css" type="text/css"
           media="all"/>
     <link rel="stylesheet" id="custom-css" href="{{asset(env('THEME')) }}/css/custom.css" type="text/css" media="all"/>
+    <link rel="stylesheet" id="custom-css" href="{{asset(env('THEME')) }}/css/jquery-ui.css" type="text/css" media="all"/>
 
     <!-- FONTs -->
     <link rel="stylesheet" id="google-fonts-css"
@@ -78,9 +80,7 @@
     <script type="text/javascript" src="{{asset(env('THEME')) }}/js/jquery.js"></script>
     <script type="text/javascript" src="{{asset(env('THEME')) }}/js/ckeditor/ckeditor.js"></script>
     <script type="text/javascript" src="{{asset(env('THEME')) }}/js/bootstrap-filestyle.min.js"></script>
-
-
-    <script type="text/javascript" src="{{asset(env('THEME')) }}/js/myscripts.js"></script>
+    <script type="text/javascript" src="{{asset(env('THEME')) }}/js/jquery-ui.js"></script>
 
 </head>
 <!-- END HEAD -->

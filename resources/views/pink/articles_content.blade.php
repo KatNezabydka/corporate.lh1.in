@@ -29,7 +29,7 @@
                     <p class="author"><span>by <a href="#" title="Posts by {{ $article->user->name }}"
                                                   rel="author">{{ $article->user->name }}</a></span></p>
                     <p class="categories"><span>In: <a
-                                    href="{{ route('articlesCar',['cat_alias'=> $article->category->alias]) }}"
+                                    href="{{ route('articlesCat',['cat_alias'=> $article->category->alias]) }}"
                                     title="View all posts in {{ $article->category->title }}"
                                     rel="category tag">{{ $article->category->title }}</a></span></p>
 

@@ -49,7 +49,8 @@ Route::resource('articles','ArticlesController',[
                                                 ]
                                                 ]);
 //w - любое слово (проверяем строку статьи на валидность)
-Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'as' => 'articlesCar'])->where('cat_alias', '[\w-]+');
+//articlesCat - для отображения категорий, привязанных к определенной категории
+Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'as' => 'articlesCat'])->where('cat_alias', '[\w-]+');
 
 
 Route::resource('comment','CommentController',['only' =>['store']]);
@@ -74,6 +75,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //admin - Привилегии
     Route::resource('/permissions','Admin\PermissionsController');
     //admin - Меню
+    //передаваемые параметры menus
     Route::resource('/menus','Admin\MenusController');
 
 

@@ -33,7 +33,7 @@
         <div id="accordion">
 
 
-            <h3>{!! Form::radio('type', 'customLink', (isset($type) && $type == 'customLink') ? TRUE : FALSE) !!}
+            <h3>{!! Form::radio('type', 'customLink',(isset($type) && $type == 'customLink') ? TRUE : FALSE,['class' => 'radioMenu']) !!}
                 <span class="label">Пользовательская ссылка: </span></h3>
 
             <ul>
@@ -44,14 +44,14 @@
                         <span class="sublabel">Путь для ссылки</span><br/>
                     </label>
                     <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
-                        {!! Form::text('custom_link',(isset($menu->path)) && $type == 'custom_link' ? TRUE : FALSE, ['placeholder'=>'Введите название пункта меню']) !!}
+                        {!! Form::text('custom_link',(isset($menu->path)) && $type == 'customLink' ?  $menu->path : FALSE, ['placeholder'=>'Введите название пункта меню']) !!}
                     </div>
                 </li>
                 <div style="clear: both;"></div>
             </ul>
 
 
-            <h3>{!! Form::radio('type', 'blogLink', (isset($type) && $type == 'blogLink') ? TRUE : FALSE)!!}
+            <h3>{!! Form::radio('type', 'blogLink', (isset($type) && $type == 'blogLink') ? TRUE : FALSE, ['class' => 'radioMenu'])!!}
                 <span class="label">Раздел Блог: </span></h3>
 
             <ul>
@@ -63,8 +63,7 @@
                     </label>
                     <div class="input-prepend">
                         @if($categories)
-                            {{--,,(isset($option) && $option) ? $option- не уверенна что конец такой--}}
-                            {!! Form::select('category_alias',$categories)!!}
+                            {!! Form::select('category_alias',$categories, (isset($option) && $option) ? $option : FALSE)!!}
                         @endif
                     </div>
                 </li>
@@ -76,14 +75,14 @@
                         <span class="sublabel">Ссылка на материал блога</span><br/>
                     </label>
                     <div class="input-prepend">
-                        {!! Form::select('article_alias',$articles) !!}
+                        {!! Form::select('article_alias',$articles, (isset($option) && $option) ? $option : FALSE, ['placeholder' => 'Не используется']) !!}
                     </div>
                 </li>
                 <div style="clear: both;"></div>
             </ul>
 
 
-            <h3>{!! Form::radio('type', 'portfolioLink', (isset($type) && $type == 'portfolioLink') ? TRUE : FALSE ) !!}
+            <h3>{!! Form::radio('type', 'portfolioLink', (isset($type) && $type == 'portfolioLink') ? TRUE : FALSE, ['class' => 'radioMenu'] ) !!}
                 <span class="label">Раздел портфолио: </span></h3>
 
             <ul>
@@ -94,7 +93,7 @@
                         <span class="sublabel">Ссылка на запись портфолио</span><br/>
                     </label>
                     <div class="input-prepend">
-                        {!! Form::select('portfolio_alias',$portfolios) !!}
+                        {!! Form::select('portfolio_alias',$portfolios, (isset($option) && $option) ? $option : FALSE, ['placeholder' => 'Не используется']) !!}
                     </div>
                 </li>
 
@@ -105,7 +104,7 @@
                         <span class="sublabel">Портфолио</span><br/>
                     </label>
                     <div class="input-prepend">
-                        {!! Form::select('filter_alias',$filters) !!}
+                        {!! Form::select('filter_alias',$filters, (isset($option) && $option) ? $option : FALSE, ['placeholder' => 'Не используется']) !!}
                     </div>
                 </li>
             </ul>
@@ -129,3 +128,35 @@
 
     </div>
 </div>
+
+<script>
+    //библиотека jQuery - функция будет выполняться только после полной загрузки страницы
+    //$ - псевдоним для функции jQuery
+    jQuery(function ($) {
+        $('#accordion').accordion({
+            //Активируем радиокнопку, когда пользователь открывает вкладку
+        //e - обьект события, которое в данный момент сработало
+            //obj - будет созранен обьект библиотеки jQuery UserInterface для данного виджета Аккордион
+            activate: function(e, obj){
+                obj.newPanel.prev().find('input[type=radio]').attr('checked','checked');
+            }
+        });
+        //находим все радиокнопки
+        //их как их 3 используем each() - как цикл
+        //int - индекс элемента для которого вызывается данная функция
+        //it - объект элемента для которого вызывается функция
+        var active = 0;
+        $('#accordion input[type=radio]').each(function (ind,it) {
+            //prop() - возвращает значение свойства для данного єлемента
+            //если данная кнопка активна
+            if ($(this).prop('checked')) {
+                active = ind;
+            }
+        });
+
+        //повторно вызываем виджет аккардион и обращаемся к его функционалу
+        //обращаемся к параметру option - это опции, настройка active - это индекс активной вкладки
+        $('#accordion').accordion('option','active', active);
+    })
+
+</script>

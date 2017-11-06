@@ -30,11 +30,16 @@ class RouteServiceProvider extends ServiceProvider
         parent::boot($router);
         //связываем параметр articles с конкретной моделью по alias не по id
         // bind() привязывает текстовую информацию(d нашем случае параметр routa articles) с конкретной моделью
-        // $value - это будет наш параметр alias? который передаем в строке, для редактированние данной статьи
+        // $value - это будет наш параметр alias который передаем в строке, для редактированние данной статьи
         $router->bind('articles', function($value) {
             return \App\Article::where('alias',$value)->first();
-
         });
+
+        //привязали к данному параметру  'menus' конкретную модель \App\Menu
+        $router->bind('menus', function($value) {
+            return \App\Menu::where('id',$value)->first();
+        });
+
     }
 
     /**
