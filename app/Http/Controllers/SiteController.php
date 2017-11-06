@@ -32,9 +32,6 @@ class SiteController extends Controller
     // логика по работе со комментариями
     protected $c_rep;
 
-    // логика по работе с категориями
-    protected $cat_rep;
-
     // меняем заголовки и мета-данные
     protected $keywords;
     protected $meta_desc;

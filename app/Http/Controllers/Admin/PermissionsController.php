@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\PermissionsRepository;
 use App\Repositories\RolesRepository;
 use Gate;
+use Illuminate\Support\Facades\Lang;
 
 
 class PermissionsController extends AdminController
@@ -42,7 +43,7 @@ class PermissionsController extends AdminController
      */
     public function index()
     {
-        $this->title = "Менеджер прав пользователей";
+        $this->title = Lang::get('ru.permissions_title');
         // формируем коллекцию ролей и привилегий
         $roles = $this->getRoles();
         $permissions = $this->getPermissions();

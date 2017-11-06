@@ -11,6 +11,8 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Gate;
 use Menu;
+use Illuminate\Support\Facades\Lang;
+use App\Category;
 
 class MenusController extends AdminController
 {
@@ -90,10 +92,77 @@ class MenusController extends AdminController
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
+     *
+     * Создание нового пункта меню
      */
     public function create()
     {
-        //
+        $this->title = Lang::get('ru.menu_title');
+
+        //Нам нужно все привести к массиву, чтобы могли использовать SELECT в HTML
+
+        //Выборка пунктов меню
+
+        //roots() - вызов родительских пунктов меню
+        $tmp = $this->getMenus()->roots();
+        //reduce() - позволяет описать функцию, которая будет вызвана для каждого элемента коллекции
+        //и уменьшает коллекцию на 1 элемент при каждом вызове
+        //и результат, который возвращается передается как аргумент в следующую итерацию
+        //для первого вызова $returnMenus = 0;
+        //reduce() - 1й аргумент функция, 2й - аргумент для 1го вызова функции
+        //$returnMenus = массивчик наш, $menu - для какого пункта меню вызвалась функция
+        $menus = $tmp->reduce(function ($returnMenus, $menu){
+            $returnMenus[$menu->id] = $menu->title;
+                return $returnMenus;
+        },['0' => 'Родительский пункт меню']);
+
+        //Выборка категорий
+
+        $categories = Category::select(['title', 'alias', 'parent_id','id'])->get();
+
+        $list = array();
+        //array_add - добавляет элемент в массив
+        //1)какой массив; 2)ключ; 3)значение
+        $list  = array_add($list  , '0', 'Не используется');
+        $list  = array_add($list  , 'parent', 'Раздел блог');
+
+        foreach($categories as $category){
+            //значит работаем с родителем
+            if($category->parent_id == 0) {
+                $list[$category->title] = array();
+            }
+            else {
+                //значит это дочерний элемент
+                //$category->parent_id)->first()->title - условие поиска id
+                //ищем parent_id у текущей модели категории, берем first элемент потому что он один и выбираем у него title
+                $list[$categories->where('id',$category->parent_id)->first()->title][$category->alias] = $category->title;
+            }
+        }
+
+        //Выборка материалов
+        $articles = $this->a_rep->get(['id','title','alias']);
+
+        $articles = $articles->reduce(function ($returnArticles, $article){
+            $returnArticles[$article->alias] = $article->title;
+            return $returnArticles;
+        },['0' => 'Не используется']);
+
+        //Выборка портфолио
+        $filters = \App\Filter::select('id','title','alias')->get()->reduce(function ($returnFilters, $filter){
+            $returnFilters[$filter->alias] = $filter->title;
+            return $returnFilters;
+        },['0' => 'Не используется','parent' => 'Раздел портфолио']);
+
+        $portfolios = $this->p_rep->get(['id','alias','title'])->reduce(function ($returnPortfolios, $portfolio){
+            $returnPortfolios[$portfolio->alias] = $portfolio->title;
+            return $returnPortfolios;
+        },['0' => 'Не используется']);
+
+
+        $this->content = view(env('THEME').'.admin.menus_create_content')->with(['menus'=>$menus, 'categories'=>$list, 'articles'=>$articles, 'filters' =>$filters, 'portfolios'=>$portfolios])->render();
+
+        return $this->renderOut();
+        
     }
 
     /**

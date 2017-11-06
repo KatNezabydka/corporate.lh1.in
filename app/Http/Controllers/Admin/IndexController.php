@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Gate;
-
+use Illuminate\Support\Facades\Lang;
 class IndexController extends AdminController
 {
     public function __construct()
@@ -27,7 +27,7 @@ class IndexController extends AdminController
     }
 
     public function index(){
-        $this->title = 'Панель администратора';
+        $this->title = Lang::get('ru.menu_admin');
 
         return $this->renderOut();
     }
