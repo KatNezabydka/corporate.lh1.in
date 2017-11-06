@@ -69,7 +69,7 @@ class AdminController extends \App\Http\Controllers\Controller
             //добавляем пункты меню - Имя и Путь тот, у которого тип ресурс
             $menu->add('Статьи',array('route' => 'admin.articles.index'));
             $menu->add('Портфолио',array('route' => 'admin.articles.index'));
-            $menu->add('Меню',array('route' => 'admin.articles.index'));
+            $menu->add('Меню',array('route' => 'admin.menus.index'));
             $menu->add('Пользователи',array('route' => 'admin.articles.index'));
             $menu->add('Привилегии',array('route' => 'admin.permissions.index'));
         });

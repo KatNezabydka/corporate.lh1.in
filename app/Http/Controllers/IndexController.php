@@ -10,7 +10,6 @@ use App\Repositories\SlidersRepository;
 use App\Repositories\PortfoliosRepository;
 use App\Repositories\ArticlesRepository;
 use Config;
-use Illuminate\Support\Facades\Cookie;
 
 
 /**
@@ -70,7 +69,6 @@ class IndexController extends SiteController
         $articles = $this->getArticles();
 
         $this->contentRightBar = view(env('THEME') . '.indexBar')->with('articles', $articles)->render();
-
 
         return $this->renderOutput();
 

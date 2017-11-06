@@ -45,9 +45,7 @@
                 </table>
             </div>
 
-            {!! Form::open(['url' => route('admin.articles.create'),'method' => 'POST']) !!}
-            {!! Form::button('Добавить материал',['class' => 'btn btn btn-the-salmon-dance-3','type' => 'submit']) !!}
-            {!! Form::close() !!}
+            {!! Html::link(route('admin.articles.create'),'Добавить материал',['class' => 'btn btn-the-salmon-dance-3']) !!}
 
 
         </div>

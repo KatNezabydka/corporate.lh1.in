@@ -70,9 +70,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //параметры данного маршрута формируются как articles
     //admin - Статьи
     Route::resource('/articles','Admin\ArticlesController');
-    Route::post('/articles/create','Admin\ArticlesController@create');
+//    Route::post('/articles/create','Admin\ArticlesController@create');
     //admin - Привилегии
     Route::resource('/permissions','Admin\PermissionsController');
+    //admin - Меню
+    Route::resource('/menus','Admin\MenusController');
 
 
 

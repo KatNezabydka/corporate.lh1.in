@@ -32,6 +32,7 @@ class PermissionsRepository extends Repository {
         foreach ($roles as $value) {
             //роли - это ключи в массиве
             if(isset($data[$value->id])){
+                //savePermissions - описываются в модели Pole
                 //$data[$value->id] - массив приав, который нужно прикрепить к данной роли
                 $value->savePermissions($data[$value->id]);
             }
