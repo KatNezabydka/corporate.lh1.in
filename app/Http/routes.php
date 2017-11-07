@@ -77,7 +77,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     //admin - Меню
     //передаваемые параметры menus
     Route::resource('/menus','Admin\MenusController');
-
+    //admin - Пользователи
+    Route::resource('/users','Admin\UsersController');
 
 
 });

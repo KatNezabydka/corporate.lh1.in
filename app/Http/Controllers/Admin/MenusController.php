@@ -86,11 +86,7 @@ class MenusController extends AdminController
             }
 
         });
-
-
     }
-
-
     /**
      * Show the form for creating a new resource.
      *

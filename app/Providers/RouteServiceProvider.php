@@ -40,6 +40,11 @@ class RouteServiceProvider extends ServiceProvider
             return \App\Menu::where('id',$value)->first();
         });
 
+        //ищем запись пользователя по идентификатору
+        $router->bind('users', function($value) {
+            return \App\User::find($value);
+        });
+
     }
 
     /**
