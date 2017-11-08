@@ -22,7 +22,7 @@
         @endif
     </div>
 
-    @if(!$comments->isEmpty())
+    @if(!$comments->isEmpty() && ($comments) )
 
         <div class="widget-last widget recent-comments">
             <h3>{{ Lang::get('ru.latest_comments') }}</h3>
