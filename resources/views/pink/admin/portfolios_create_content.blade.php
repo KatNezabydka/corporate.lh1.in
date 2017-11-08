@@ -1,18 +1,18 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
 
-        {!! Form::open(['url' => (isset($article->id)) ? route('admin.articles.update',['articles'=>$article->alias]) :route('admin.articles.store'),'class'=>'contact-form','method'=>'POST','enctype'=>'multipart/form-data']) !!}
+        {!! Form::open(['url' => (isset($portfolio->id)) ? route('admin.portfolios.update',['portfolios'=>$portfolio->alias]) : route('admin.portfolios.store'),'class'=>'contact-form','method'=>'POST','enctype'=>'multipart/form-data']) !!}
 
         <ul>
             <li class="text-field">
                 <label for="name-contact-us">
                     <span class="label">{{Lang::get('ru.title_name') }}: </span>
                     <br/>
-                    <span class="sublabel">{{Lang::get('ru.title_portfolio') }}</span><br/>
+                    <span class="sublabel">{{Lang::get('ru.title_article') }}</span><br/>
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}
-                    {!! Form::text('title',(isset($article->title)) ? $article->title : old('title'), ['placeholder'=>'Введите название страницы']) !!}
+                    {!! Form::text('title',(isset($portfolio->title)) ? $portfolio->title : old('title'), ['placeholder'=>'Введите название портфолио']) !!}
                 </div>
             </li>
 
@@ -24,7 +24,7 @@
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}
-                    {!! Form::text('keywords',(isset($article->keywords)) ? $article->keywords : old('keywords'), ['placeholder'=>'Введите ключевые слова']) !!}
+                    {!! Form::text('keywords',(isset($portfolio->keywords)) ? $portfolio->keywords : old('keywords'), ['placeholder'=>'Введите ключевые слова']) !!}
                 </div>
 
             </li>
@@ -37,7 +37,7 @@
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}
-                    {!! Form::text('meta_desc',(isset($article->meta_desc)) ? $article->meta_desc : old('meta_desc'), ['placeholder'=>'Введите мета описание']) !!}
+                    {!! Form::text('meta_desc',(isset($portfolio->meta_desc)) ? $portfolio->meta_desc : old('meta_desc'), ['placeholder'=>'Введите мета описание']) !!}
                 </div>
             </li>
 
@@ -49,20 +49,35 @@
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}
-                    {!! Form::text('alias',(isset($article->alias)) ? $article->alias : old('alias'), ['placeholder'=>'Введите псевдоним']) !!}
+                    {!! Form::text('alias',(isset($portfolio->alias)) ? $portfolio->alias : old('alias'), ['placeholder'=>'Введите псевдоним']) !!}
                 </div>
             </li>
 
-            <li class="textarea-field">
-                <label for="message-contact-us">
-                    <span class="label">{{Lang::get('ru.desc') }}: </span>
+            <li class="text-field">
+                <label for="name-contact-us">
+                    <span class="label">{{Lang::get('ru.Customer') }}: </span>
+                    <br/>
+                    <span class="sublabel">{{Lang::get('ru.Customer') }}</span><br/>
                 </label>
-                <div class="input-prepend"><span class="add-on"><i class="icon-pencil"></i></span>
+                <div class="input-prepend"><span class="add-on"><i class="icon-user"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}
-                    {!! Form::textarea('desc',(isset($article->desc)) ? $article->desc : old('desc'), ['id'=>'editor','placeholder'=>'Введите краткое описание']) !!}
+                    {!! Form::text('customer',(isset($portfolio->customer)) ? $portfolio->customer : old('customer'), ['placeholder'=>'Введите производителя']) !!}
                 </div>
-                <div class="msg-error"></div>
             </li>
+
+            <li class="text-field">
+                <label for="name-contact-us">
+                    <span class="label">{{Lang::get('ru.Filter') }}: </span>
+                    <br/>
+                    <span class="sublabel">{{Lang::get('ru.Filter') }}</span><br/>
+                </label>
+                <div class="input-prepend">
+                    {{--1: имя для тега select (name). 2: массив, который сформирован в контроллере. 3: активная категория  --}}
+                    {{--3й параметр только если редактируем существующую категорию--}}
+                    {!! Form::select('filter_alias', $filters, isset($portfolio->filter_alias) ? $portfolio->filter_alias : '',['placeholder' => 'Не используется']) !!}
+                </div>
+            </li>
+
 
             <li class="textarea-field">
                 <label for="message-contact-us">
@@ -70,19 +85,21 @@
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-pencil"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}
-                    {!! Form::textarea('text',(isset($article->text)) ? $article->text : old('text'), ['id'=>'editor2','class' => 'form-control','placeholder'=>'Введите описание']) !!}
+                    {!! Form::textarea('text',(isset($portfolio->text)) ? $portfolio->text : old('text'), ['id'=>'editor2','class' => 'form-control','placeholder'=>'Введите описание']) !!}
                 </div>
                 <div class="msg-error"></div>
             </li>
 
-            @if(isset($article->img->path))
+
+
+            @if(isset($portfolio->img->path))
                 <li class="textarea-field">
 
                     <label>
                         <span class="label">{{Lang::get('ru.image_') }}: </span>
                     </label>
-                    {!! Html::image(asset(env('THEME')).'/images/articles/'.$article->img->path,'',['style'=>'width:30%']) !!}
-                    {!! Form::hidden('old_image',$article->img->path) !!}
+                    {!! Html::image(asset(env('THEME')).'/images/articles/'.$portfolio->img->path,'',['style'=>'width:30%']) !!}
+                    {!! Form::hidden('old_image',$portfolio->img->path) !!}
 
                 </li>
             @endif
@@ -98,22 +115,10 @@
                 </div>
             </li>
 
-            <li class="text-field">
-                <label for="name-contact-us">
-                    <span class="label">{{Lang::get('ru.category') }}: </span>
-                    <br/>
-                    <span class="sublabel">{{Lang::get('ru.category_') }}</span><br/>
-                </label>
-                <div class="input-prepend">
-                    {{--1: имя для тега select (name). 2: массив, который сформирован в контроллере. 3: активная категория  --}}
-                    {{--3й параметр только если редактируем существующую категорию--}}
-                    {!! Form::select('category_id', $categories, isset($article->category_id) ? $article->category_id : '') !!}
-                </div>
-            </li>
             {{--Актуально только если редактируем данный материал, так как контроллер использует тип recource, а значит редактирование это PUT--}}
             {{--PUT на прчмую отправить не можем, поэтому используем скрытое поле hidden--}}
-            @if(isset($article->id))
-            <input type="hidden" name="_method" value="PUT">
+            @if(isset($portfolio->id))
+                <input type="hidden" name="_method" value="PUT">
 
             @endif
 

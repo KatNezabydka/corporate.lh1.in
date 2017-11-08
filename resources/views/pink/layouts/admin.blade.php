@@ -112,7 +112,11 @@
                         <blockquote class="text-quote-quote">&#8220;The caterpillar does all the work but the butterfly
                             gets all the publicity.&#8221;
                         </blockquote>
-                        <cite class="text-quote-author">George Carlin</cite>
+                        <cite class="text-quote-author">
+                            @if(\Auth::user()) <a href="/admin"> Привет, {{\Auth::user()->name}}</a> / <a href="/logout">Выйти</a>
+                            @else <a href="/login">Войти</a>
+                            @endif
+                        </cite>
                     </div>
                 </div>
                 <div class="clearer"></div>

@@ -6,11 +6,16 @@ use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 use App\Article;
+use App\Portfolio;
 use App\Permission;
 use App\Menu;
+use App\User;
+
 use App\Policies\PermissionPolicy;
 use App\Policies\ArticlePolicy;
-use App\Policies\MenusPolicy;
+use App\Policies\MenuPolicy;
+use App\Policies\UserPolicy;
+use App\Policies\PortfolioPolicy;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -23,7 +28,9 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         Article::class => ArticlePolicy::class,
         Permission::class => PermissionPolicy::class,
-        Menu::class => MenusPolicy::class,
+        Menu::class => MenuPolicy::class,
+        User::class => UserPolicy::class,
+        Portfolio::class => PortfolioPolicy::class,
 
     ];
 
@@ -66,18 +73,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('VIEW_ADMIN_USERS', FALSE);
         });
 
-
-        $gate->define('CREATE_USERS', function ($user) {
-            return $user->canDo('CREATE_USERS', FALSE);
+        $gate->define('VIEW_ADMIN_PORTFOLIOS', function ($user) {
+            return $user->canDo('VIEW_ADMIN_PORTFOLIOS', FALSE);
         });
 
-        $gate->define('CHANGE_USERS', function ($user) {
-            return $user->canDo('CHANGE_USERS', FALSE);
+        $gate->define('CREATE_PORTFOLIOS', function ($user) {
+            return $user->canDo('CREATE_PORTFOLIOS', FALSE);
         });
 
-        $gate->define('DELETE_USERS', function ($user) {
-            return $user->canDo('DELETE_USERS', FALSE);
-        });
 
     }
 

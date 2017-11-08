@@ -7,6 +7,7 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Illuminate\Support\Facades\Lang;
 
 class AuthController extends Controller
 {
@@ -46,6 +47,7 @@ class AuthController extends Controller
         $this->loginView = env('THEME').'.login';
     }
 
+
     public function showLoginForm()
     {
         $view = property_exists($this, 'loginView')
@@ -53,7 +55,7 @@ class AuthController extends Controller
 
         if (view()->exists($view)) {
             //with - позволяет передать в макет переменные
-            return view($view)->with('title','Вход на сайт');
+            return view($view)->with('title',Lang::get('ru.enter'));
         }
 
       abort(404);

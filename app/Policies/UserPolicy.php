@@ -5,7 +5,7 @@ namespace App\Policies;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use App\User;
 
-class MenusPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -21,16 +21,19 @@ class MenusPolicy
 
     public function save(User $user)
     {
-        return $user->canDo('ADD_MENU');
+        return $user->canDo('CREATE_USERS');
     }
 
     public function update(User $user)
     {
-        return $user->canDo('EDIT_MENU');
+        return $user->canDo('CHANGE_USERS');
     }
 
     public function delete(User $user)
     {
-        return $user->canDo('DELETE_MENU');
+        return $user->canDo('DELETE_USERS');
     }
+
+
 }
+

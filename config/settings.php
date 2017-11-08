@@ -17,6 +17,7 @@ return [
                 'height'=>768
                 ],
     'image_path' => '/images/articles/',
+    'image_path_portfolio' => '/images/projects/',
 
 
 

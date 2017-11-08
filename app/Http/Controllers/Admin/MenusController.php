@@ -56,6 +56,9 @@ class MenusController extends AdminController
 
     }
 
+    /**
+     * @return bool
+     */
     public function getMenus()
     {
         $menu = $this->m_rep->get();
@@ -81,8 +84,6 @@ class MenusController extends AdminController
 
                     }
                 }
-
-
             }
 
         });
@@ -174,6 +175,7 @@ class MenusController extends AdminController
      */
     public function store(MenusRequest $request)
     {
+
         //addArticle - созранит информацию о новом материале (будет возвращать array)
         $result = $this->m_rep->аddMenu($request);
         //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
@@ -255,8 +257,6 @@ class MenusController extends AdminController
             $type = 'customLink';
 
         }
-
-
         //Нам нужно все привести к массиву, чтобы могли использовать SELECT в HTML
 
         //Выборка пунктов меню
@@ -332,7 +332,6 @@ class MenusController extends AdminController
      */
     public function update(Request $request,\App\Menu $menu)
     {
-
 
         $result = $this->m_rep->updateMenu($request, $menu);
         //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад

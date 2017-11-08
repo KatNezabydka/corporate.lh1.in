@@ -45,6 +45,7 @@ class ArticlesRepository extends Repository
         if (Gate::denies('save', $this->model)) {
             abort(403);
         }
+
         //массив с инофрмацией, которая отправляется с запросом, exept - все поля кроме
         //'image' - нам не интересно, т.к. установим стороннее расширение для работы с изображениями
         $data = $request->except('_token', 'image');

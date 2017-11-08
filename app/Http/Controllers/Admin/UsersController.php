@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 
@@ -31,7 +31,7 @@ class UsersController extends AdminController
         $this->us_rep = $us_rep;
         $this->rol_rep = $rol_rep;
         //каталог и имя шаблона
-        $this->template = env('THEME').'.admin.users';
+        $this->template = env('THEME') . '.admin.users';
     }
 
     /**
@@ -45,7 +45,7 @@ class UsersController extends AdminController
 
         $users = $this->us_rep->get();
 
-        $this->content = view(env('THEME').'.admin.users_content')->with(['users'=>$users])->render();
+        $this->content = view(env('THEME') . '.admin.users_content')->with(['users' => $users])->render();
 
         return $this->renderOut();
     }
@@ -58,22 +58,21 @@ class UsersController extends AdminController
     public function create()
     {
 
-        //создали класс политики безопасности php artisan make:policy ArticlesPolicy
-        if (Gate::denies('CREATE_USERS')) {
-            abort(403);
-        }
         $this->title = Lang::get('ru.new_users');
 
-       $roles = $this->getRoles()->reduce(function ($returnRoles, $role){
-           $returnRoles[$role->id] = $role->name;
-                return $returnRoles;
-            },[]);
+        $roles = $this->getRoles()->reduce(function ($returnRoles, $role) {
+            $returnRoles[$role->id] = $role->name;
+            return $returnRoles;
+        }, []);
 
         $this->content = view(env('THEME') . '.admin.users_create_content')->with('roles', $roles)->render();
         return $this->renderOut();
 
     }
 
+    /**
+     * @return mixed
+     */
     public function getRoles()
     {
         //обращаемся к репозиторию, делаем выборку их бд
@@ -84,7 +83,7 @@ class UsersController extends AdminController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request $request
      * @return \Illuminate\Http\Response
      */
     public function store(UserRequest $request)
@@ -102,7 +101,7 @@ class UsersController extends AdminController
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -113,21 +112,21 @@ class UsersController extends AdminController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      * User $user - обьект модели пользователя, которого нужно отредактировать
      */
     public function edit(User $user)
     {
 
-        $this->title = Lang::get('ru.change_user').' - ' .$user->name;
+        $this->title = Lang::get('ru.change_user') . ' - ' . $user->name;
 
-        $roles = $this->getRoles()->reduce(function ($returnRoles, $role){
+        $roles = $this->getRoles()->reduce(function ($returnRoles, $role) {
             $returnRoles[$role->id] = $role->name;
             return $returnRoles;
-        },[]);
+        }, []);
 
-        $this->content = view(env('THEME') . '.admin.users_create_content')->with(['roles'=>$roles, 'user'=>$user])->render();
+        $this->content = view(env('THEME') . '.admin.users_create_content')->with(['roles' => $roles, 'user' => $user])->render();
         return $this->renderOut();
 
     }
@@ -135,8 +134,8 @@ class UsersController extends AdminController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function update(UserRequest $request, User $user)
@@ -154,7 +153,7 @@ class UsersController extends AdminController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int $id
      * @return \Illuminate\Http\Response
      */
     public function destroy(User $user)

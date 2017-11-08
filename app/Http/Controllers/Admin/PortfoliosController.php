@@ -2,41 +2,40 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Portfolio;
+use App\Filter;
 use Illuminate\Http\Request;
-use App\Http\Requests\ArticleRequest;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Repositories\ArticlesRepository;
-use App\Repositories\CategoryRepository;
+
+use App\Repositories\PortfoliosRepository;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Lang;
-use App\Category;
-use App\Article;
+use App\Http\Requests\PortfolioRequest;
 
-class ArticlesController extends AdminController
+class PortfoliosController extends AdminController
 {
+
+    protected $p_rep;
     /**
      * ArticlesController constructor.
      *  Подключаем ArticlesRepository - который работает с табличкой
      */
-    public function __construct(ArticlesRepository $a_rep, CategoryRepository $cat_rep)
+
+    public function __construct(PortfoliosRepository $p_rep)
     {
         parent::__construct();
 
-        //проверка если у авторизированного пользователя права на просмотр этого раздела
-        //для этого используем сервис провайдер (Открываем Provider\AuthServiceProvider), вызываем фасад Gate
-        //Если запрещен доступ к админке, выкидываем его
-        if (Gate::denies('VIEW_ADMIN_ARTICLES')) {
+        if (Gate::denies('VIEW_ADMIN_PORTFOLIOS')) {
             abort(403);
         }
 
         //переопределяем значение свойства
-        $this->a_rep = $a_rep;
-        $this->cat_rep = $cat_rep;
+        $this->p_rep = $p_rep;
 
         //переопределяем свойство template - имя шаблона, которое используется для главной страницы
-        $this->template = env('THEME') . '.admin.articles';
+        $this->template = env('THEME') . '.admin.portfolios';
 
     }
 
@@ -48,22 +47,30 @@ class ArticlesController extends AdminController
     public function index()
     {
         //Отобразить список материалов, которые уже добавлены
-        $this->title = Lang::get('ru.manager_articles');
+        $this->title = Lang::get('ru.manager_portfolios');
 
-        //выбор статей из бд коллекции моделей
-        $articles = $this->getArticles();
+        //выбор портфолио из бд коллекции моделей
+        $portfolios = $this->getPortfolios();
         //формируем контент - with - передать переменные
-        $this->content = view(env('THEME') . '.admin.articles_content')->with('articles', $articles)->render();
+        $this->content = view(env('THEME') . '.admin.portfolios_content')->with('portfolios', $portfolios)->render();
 
 
         return $this->renderOut();
     }
 
 
-    public function getArticles()
+    public function getPortfolios()
     {
-        //Возвращаем вызов метода get() репозитория articlesRepository
-        return $this->a_rep->get();
+        //работаем с репозиторием p_rep
+        $portfolios = $this->p_rep->get();
+
+//        //если есть связанная модель - а у нас это фильтр - нужно подгрузить ее
+//        if($portfolios ) {
+//            $portfolios->load('filter');
+//        }
+
+        return $portfolios;
+
     }
 
 
@@ -74,45 +81,25 @@ class ArticlesController extends AdminController
      */
     public function create()
     {
-        //Проверяем есть ли у пользователя права на добавление article save - проверяемое действие, условие будем формировать в класе политике безопасности \App\Article
-        //создали класс политики безопасности php artisan make:policy ArticlesPolicy
-        if (Gate::denies('save', new Article)) {
-            abort(403);
 
-        }
-        $this->title = Lang::get('ru.add_new_article');
+        $this->title = Lang::get('ru.add_new_portfolio');
 
-        //получаем категории из таблицы
-        $categories = Category::select('title', 'alias', 'parent_id', 'id')->get();
+        //получаем фильтры из таблицы - РЕАЛИЗОВАТЬ!!!
+        $filters = Filter::select('title', 'alias', 'id')->get();
         // формируем выпадающий списток с группами  документации collective расширение для html и forms
         //выпадающий список select с групами
+
         $lists = array();
 
-        foreach ($categories as $category) {
+        foreach ($filters as $filter) {
             //значит это родительская категория
-            if ($category->parent_id == 0) {
-                $lists[$category->title] = array();
-            }
-
-            //если это модель дочерней категории
-            //where - в категориях найдем конкретную модель у которой id находится значение родителя
-            //но whereвозвращает коллекцию, но мы знаем что у дочерней модели может быть только один родитель
-            /// а значит выбираем first()
-            else {
-                $lists[$categories->where('id', $category->parent_id)->first()->title][$category->id] = $category->title;
-            }
+            $lists[$filter->alias] = $filter->title;
         }
-        $this->content = view(env('THEME') . '.admin.articles_create_content')->with('categories', $lists)->render();
+
+        $this->content = view(env('THEME') . '.admin.portfolios_create_content')->with(['filters'=>$lists])->render();
         return $this->renderOut();
 
     }
-
-//    public function getCategory()
-//    {
-//        //Возвращаем вызов метода get() репозитория articlesRepository
-//        $categories = $this->cat_rep->get('title','alias','parent_id','id');
-//    }
-
 
     /**
      * Store a newly created resource in storage.
@@ -123,10 +110,12 @@ class ArticlesController extends AdminController
      * дальше передаем управление конкретному репозиторию (сохранение материала делает ArticlesRepository)
      * В аргументах не Request, а ArticleRequest (здесь проходит валидация!!!)
      */
-    public function store(ArticleRequest $request)
+    public function store(PortfolioRequest $request)
     {
+
         //addArticle - созранит информацию о новом материале (будет возвращать array)
-        $result = $this->a_rep->addArticle($request);
+        $result = $this->p_rep->аddPortfolio($request);
+
         //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
         if (is_array($result) && !empty($result['error'])) {
             //with - возвращает в сессию информацию
@@ -156,41 +145,33 @@ class ArticlesController extends AdminController
     //Внедрение зависимости, можно было в коде написать $article = Article::where('alias', $alias); где $alias - аргумент функции
     //но мы напишем в аргументы $article - и это будет модель редактируемого материала
 
-    public function edit(Article $article)
+    public function edit(Portfolio $portfolio)
     {
 
         //dd($article) - вернет модель, но пустую, потому что ожидает он ее по идентификатору, а мы выводим по alias
         //проверяем есть ли у пользователя права на выполнение данного материала
-        if(Gate::denies('edit', new Article)) {
+        if(Gate::denies('edit', new Portfolio)) {
             abort(403);
         }
 
-        //переводим изображение в объект, чтобы могли работать с ним
-        $article->img = json_decode($article->img);
+        $this->title = 'Редактирование портфолио - '. $portfolio->title;
 
-        //получаем категории из таблицы
-        $categories = Category::select('title', 'alias', 'parent_id', 'id')->get();
+        //переводим изображение в объект, чтобы могли работать с ним
+        $portfolio->img = json_decode($portfolio->img);
+
+        //получаем фильтры из таблицы - РЕАЛИЗОВАТЬ!!!
+        $filters = Filter::select('title', 'alias', 'id')->get();
         // формируем выпадающий списток с группами  документации collective расширение для html и forms
         //выпадающий список select с групами
+
         $lists = array();
 
-        foreach ($categories as $category) {
+        foreach ($filters as $filter) {
             //значит это родительская категория
-            if ($category->parent_id == 0) {
-                $lists[$category->title] = array();
-            }
-
-            //если это модель дочерней категории
-            //where - в категориях найдем конкретную модель у которой id находится значение родителя
-            //но whereвозвращает коллекцию, но мы знаем что у дочерней модели может быть только один родитель
-            /// а значит выбираем first()
-            else {
-                $lists[$categories->where('id', $category->parent_id)->first()->title][$category->id] = $category->title;
-            }
+            $lists[$filter->alias] = $filter->title;
         }
-        $this->title = 'Редактирование материала - '. $article->title;
 
-        $this->content = view(env('THEME') . '.admin.articles_create_content')->with(['article'=>$article ,'categories'=> $lists])->render();
+        $this->content = view(env('THEME') . '.admin.portfolios_create_content')->with(['portfolio'=>$portfolio, 'filters'=>$lists])->render();
         return $this->renderOut();
     }
 
@@ -204,13 +185,13 @@ class ArticlesController extends AdminController
     //Внедряем зависимость для метода update (объект модели Article)
     //При этом в сервис провайдере RouteServiceProvider мы связали параметр articles с моделью Article
 
-    public function update(ArticleRequest $request, Article $article)
+    public function update(PortfolioRequest $request, Portfolio $portfolio)
     {
         //Article $article - сформированная модель
         //ArticleRequest $request - новые данные, которые нужно заменить
         //ArticleRequest но он валидирует alias, чтобы его ввели уникальным, а здесь мы хотим только отредактировать..так что немного переделаем валидацию
         //addArticle - созранит информацию о новом материале (будет возвращать array)
-        $result = $this->a_rep->updateArticle($request,$article);
+        $result = $this->p_rep->updatePortfolio($request,$portfolio);
         //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
         if (is_array($result) && !empty($result['error'])) {
             //with - возвращает в сессию информацию
@@ -228,10 +209,10 @@ class ArticlesController extends AdminController
      * @return \Illuminate\Http\Response
      * у нас идет поиск статьи не по id, а по alias - поэтому в аргументах модель
      */
-    public function destroy(Article $article)
+    public function destroy(Portfolio $portfolio)
     {
         //
-        $result = $this->a_rep->deleteArticle($article);
+        $result = $this->p_rep->deletePortfolio($portfolio);
         //Если при сохранении в ячейке error что-то будет - нужно вернуть пользователя назад
         if (is_array($result) && !empty($result['error'])) {
             //with - возвращает в сессию информацию

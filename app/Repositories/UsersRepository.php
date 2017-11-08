@@ -15,10 +15,10 @@ class UsersRepository extends Repository
     }
 
     public function addUser($request){
-        if (Gate::denies('CREATE_USERS')) {
+
+        if (Gate::denies('save', $this->model)) {
             abort(403);
         }
-
         //Провести валидацию!!!
         $data = $request->all();
 //        //можно так
@@ -48,7 +48,7 @@ class UsersRepository extends Repository
 
     public function updateUser($request, $user){
         //создали класс политики безопасности php artisan make:policy ArticlesPolicy
-        if (Gate::denies('CHANGE_USERS')) {
+        if (Gate::denies('update', $this->model)) {
             abort(403);
         }
 
@@ -68,7 +68,7 @@ class UsersRepository extends Repository
 
     public function deleteUser($user) {
 
-        if (Gate::denies('DELETE_USERS')) {
+        if (Gate::denies('delete', $this->model)) {
             abort(403);
         }
 

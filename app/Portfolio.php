@@ -7,6 +7,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Portfolio extends Model
 {
+    // поля, которые разрешенны к массовому заполнению
+    protected $fillable = [
+        'title','img','alias','text','customer','keywords','meta_desc','filter_alias'
+    ];
+
     //Связь с таблицей filter - один ко многим...
     //один фильтр может быть связан со многими портфолио
 
