@@ -74,7 +74,7 @@
                 <div class="input-prepend">
                     {{--1: имя для тега select (name). 2: массив, который сформирован в контроллере. 3: активная категория  --}}
                     {{--3й параметр только если редактируем существующую категорию--}}
-                    {!! Form::select('filter_alias', $filters, isset($portfolio->filter_alias) ? $portfolio->filter_alias : '',['placeholder' => 'Не используется']) !!}
+                    {!! Form::select('filter_alias', $filters, isset($portfolio->filter_alias) ? $portfolio->filter_alias : '') !!}
                 </div>
             </li>
 
