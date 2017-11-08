@@ -55,7 +55,7 @@
 
             <li class="textarea-field">
                 <label for="message-contact-us">
-                    <span class="label">{{Lang::get('ru.desc') }}: </span>
+                    <span class="label">{{Lang::get('ru.description') }}: </span>
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-pencil"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}
@@ -66,7 +66,7 @@
 
             <li class="textarea-field">
                 <label for="message-contact-us">
-                    <span class="label">{{Lang::get('ru.text_') }}: </span>
+                    <span class="label">{{Lang::get('ru.desc') }}: </span>
                 </label>
                 <div class="input-prepend"><span class="add-on"><i class="icon-pencil"></i></span>
                     {{--первое значение для атрибута name=, 2е - для value=--}}

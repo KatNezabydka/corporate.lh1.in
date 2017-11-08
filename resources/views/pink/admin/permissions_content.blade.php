@@ -1,7 +1,7 @@
 <div id="content-page" class="content group">
     <div id="content-page" class="content group">
 
-        <h3 class="title_page">{{ Lang::get('ru.permissions') }}</h3>
+        <h3 class="title_page">{{ Lang::get('ru.admin_permissions') }}</h3>
         {!! Form::open(['url' =>route('admin.permissions.store'),'method' => 'POST']) !!}
         {{--<form action="{{ route('admin.permissions.store') }}" method="POST">--}}
             {{--{{ csrf_field() }}--}}

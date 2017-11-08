@@ -81,6 +81,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->canDo('CREATE_PORTFOLIOS', FALSE);
         });
 
+        $gate->define('EDIT_SLIDERS', function ($user) {
+            return $user->canDo('EDIT_SLIDERS', FALSE);
+        });
+
 
     }
 

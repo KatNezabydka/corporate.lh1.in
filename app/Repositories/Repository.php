@@ -113,8 +113,7 @@ abstract class Repository
                 //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
                 //public_path() - возвращает путь к public
                 //save - сохраняет данное изображение по теущему пути и имя файла
-                $img->fit($size_path['width'],
-                    Config::get('settings.image')['height'])->save(public_path() . '/' . env('THEME') . $path . $obj->path);
+                $img->fit($size_path['width'],$size_path['height'])->save(public_path() . '/' . env('THEME') . $path . $obj->path);
 
                 $img->fit($size_min_max['max']['width'],
                           $size_min_max['max']['height'])->save(public_path() . '/' . env('THEME') . $path . $obj->max);

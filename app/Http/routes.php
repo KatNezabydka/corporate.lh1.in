@@ -49,7 +49,7 @@ Route::resource('articles','ArticlesController',[
                                                 ]
                                                 ]);
 //w - любое слово (проверяем строку статьи на валидность)
-//articlesCat - для отображения категорий, привязанных к определенной категории
+//articlesCat - для отображения статей, привязанных к определенной категории
 Route::get('articles/cat/{cat_alias?}',['uses' => 'ArticlesController@index', 'as' => 'articlesCat'])->where('cat_alias', '[\w-]+');
 
 
@@ -80,6 +80,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function () {
     Route::resource('/users','Admin\UsersController');
     //admin - Привилегии
     Route::resource('/permissions','Admin\PermissionsController');
+    //admin - Слайдер
+    Route::resource('/sliders','Admin\SliderController');
 
 
 

@@ -19,6 +19,8 @@ class AdminController extends \App\Http\Controllers\Controller
     protected $a_rep;
     //идентифицированный пользователь
     protected $user;
+    // логика по работе со слайдером
+    protected $s_rep;
     //для сохранения шаблона
     protected $template;
     // основная часть в html для панели администратора
@@ -72,6 +74,7 @@ class AdminController extends \App\Http\Controllers\Controller
             $menu->add('Меню',array('route' => 'admin.menus.index'));
             $menu->add('Пользователи',array('route' => 'admin.users.index'));
             $menu->add('Привилегии',array('route' => 'admin.permissions.index'));
+            $menu->add('Сдайдер',array('route' => 'admin.sliders.index'));
         });
     }
 }

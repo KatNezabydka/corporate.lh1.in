@@ -31,4 +31,18 @@ class IndexController extends AdminController
 
         return $this->renderOut();
     }
+
+    public function show(){
+        $this->title = Lang::get('ru.sliders_admin');
+
+        return $this->renderOut();
+    }
+
+    public function add(){
+        $this->title = Lang::get('ru.menu_admin');
+
+        return $this->renderOut();
+    }
+
+
 }

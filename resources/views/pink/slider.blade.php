@@ -7,7 +7,7 @@
             @set($i,1)
             @foreach($sliders as $slider)
                 <li>
-                    <div class="slide-holder" style="background:  url('{{asset(env('THEME')) }}/images/{{ $slider->img }}') no-repeat center center" style="height:483px;">
+                    <div class="slide-holder" style="background:  url('{{asset(env('THEME')) . $slider->img }}') no-repeat center center" style="height:483px;">
                         <div class="slide-content-holder inner" style="height:483px;">
                             @if($i%2 !== 0)
                                 <div class="slide-content-holder-content" style="position: absolute; top:30px;right:650px;">
@@ -16,7 +16,7 @@
                                             @endif
 
                                             <div class="slide-title">
-                                                {!! $slider->title !!}
+                                                <h2 style="color:#fff">{!! $slider->title !!}</h2>
                                             </div>
                                             <div class="slide-content" style="color:#fff">
                                                 <p>{!! $slider->desc !!}</p>

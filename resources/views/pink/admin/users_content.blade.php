@@ -1,6 +1,6 @@
 <div id="content-page" class="content group">
     <div class="hentry group">
-        <h3 class="title_page">Пользователи</h3>
+        <h3 class="title_page">{{ Lang::get('ru.admin_users') }}</h3>
 
 
         <div class="short-table white">
@@ -8,11 +8,11 @@
                 <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Login</th>
-                    <th>Role</th>
-                    <th>Удалить</th>
+                    <th>{{ Lang::get('ru.name') }}</th>
+                    <th>{{ Lang::get('ru.email') }}</th>
+                    <th>{{ Lang::get('ru.login') }}</th>
+                    <th>{{ Lang::get('ru.role') }}</th>
+                    <th>{{ Lang::get('ru.action') }}</th>
                 </tr>
                 </thead>
 

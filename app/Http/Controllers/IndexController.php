@@ -12,6 +12,7 @@ use App\Repositories\ArticlesRepository;
 use Config;
 
 
+
 /**
  * Контроллер для обработки главной страницы
  */

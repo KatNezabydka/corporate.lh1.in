@@ -1,7 +1,7 @@
 @if($articles)
     <div id="content-page" class="content group">
         <div class="hentry group">
-            <h2>Добавленные статьи</h2>
+            <h2>{{ Lang::get('ru.admin_articles') }}</h2>
             <div class="short-table white">
                 <table style="width: 100%" cellspacing="0" cellpadding="0">
                     <thead>
