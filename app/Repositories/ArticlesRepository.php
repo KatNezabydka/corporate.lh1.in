@@ -4,7 +4,6 @@ namespace App\Repositories;
 
 use App\Article;
 use Illuminate\Support\Facades\Gate;
-use Image;
 use Config;
 
 
@@ -78,49 +77,29 @@ class ArticlesRepository extends Repository
             //file() - возвращает только что загруженный файл
             $image = $request->file('image');
 
-            //проверка коррекно ли на сервер загружено изображение
-            //isValid() = true если без ошибок все
-            if ($image->isValid()) {
-                // имя для будущих изображений генерируем рандомно
-                $str = str_random(8);
+            $path = Config::get('settings.image_path_article');
+            $size_path = Config::get('settings.image');
+            $size_min_max = Config::get('settings.articles_image');
 
-                //stdClass - пустой класс
-                $obj = new \stdClass;
+            //Добавляем изображение
+            //возвращает или json-ячейку img или false
+            $result_img_json = parent::addImage($image, $path, $size_path, $size_min_max);
 
-                $obj->mini = $str . '_mini.jpg';
-                $obj->max = $str . '_max.jpg';
-                $obj->path = $str . '.jpg';
-                //make - это конструктор, у фасада Image
-                //в нем хранится объект, который установлен в расширении Intervention Image
-                $img = Image::make($image);
-                //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
-                //public_path() - возвращает путь к public
-                //save - сохраняет данное изображение по теущему пути и имя файла
-                $img->fit(Config::get('settings.image')['width'],
-                    Config::get('settings.image')['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path') . $obj->path);
+            //сохранили json-ячейку img
+            $data['img'] = $result_img_json;
 
-                $img->fit(Config::get('settings.articles_image')['max']['width'],
-                    Config::get('settings.articles_image')['max']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path') . $obj->max);
-
-                $img->fit(Config::get('settings.articles_image')['mini']['width'],
-                    Config::get('settings.articles_image')['mini']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path') . $obj->mini);
-
-                //декодируем обьект в строку формата json
-                $data['img'] = json_encode($obj);
-
-                //заполняем модель пустую модель Article ячейкаи массива $data
-                $this->model->fill($data);
-//                dd($request->user());
-                //user() - вернет пользователя, который делает изменения статьи
-                //articles() - предоставляет доступ к связанным моделям Article
-                //save() - сохраняем для определенного пользователя модель, которая уже сформирована
-                if ($request->user()->articles()->save($this->model)) {
-                    return ['status' => 'Материал добавлен'];
-                }
-
+            //заполняем модель пустую модель Article ячейкаи массива $data
+            $this->model->fill($data);
+            //user() - вернет пользователя, который делает изменения статьи
+            //articles() - предоставляет доступ к связанным моделям Article
+            //save() - сохраняем для определенного пользователя модель, которая уже сформирована
+            if ($request->user()->articles()->save($this->model)) {
+                return ['status' => 'Материал добавлен'];
             }
 
         }
+
+
     }
 
     public function updateArticle($request, $article)
@@ -164,40 +143,19 @@ class ArticlesRepository extends Repository
             //file() - возвращает только что загруженный файл
             $image = $request->file('image');
 
-            //проверка коррекно ли на сервер загружено изображение
-            //isValid() = true если без ошибок все
-            if ($image->isValid()) {
-                // имя для будущих изображений генерируем рандомно
-                $str = str_random(8);
+            $path = Config::get('settings.image_path_article');
+            $size_path = Config::get('settings.image');
+            $size_min_max = Config::get('settings.articles_image');
 
-                //stdClass - пустой класс
-                $obj = new \stdClass;
+            //Добавляем изображение
+            //возвращает или json-ячейку img или false
+            $result_img_json = parent::addImage($image, $path, $size_path, $size_min_max);
 
-                $obj->mini = $str . '_mini.jpg';
-                $obj->max = $str . '_max.jpg';
-                $obj->path = $str . '.jpg';
-                //make - это конструктор, у фасада Image
-                //в нем хранится объект, который установлен в расширении Intervention Image
-                $img = Image::make($image);
-                //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
-                //public_path() - возвращает путь к public
-                //save - сохраняет данное изображение по теущему пути и имя файла
-                $img->fit(Config::get('settings.image')['width'],
-                    Config::get('settings.image')['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path') . $obj->path);
+            //декодируем обьект в строку формата json
+            $data['img'] =  $result_img_json;
 
-                $img->fit(Config::get('settings.articles_image')['max']['width'],
-                    Config::get('settings.articles_image')['max']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path') . $obj->max);
-
-                $img->fit(Config::get('settings.articles_image')['mini']['width'],
-                    Config::get('settings.articles_image')['mini']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path') . $obj->mini);
-
-                //декодируем обьект в строку формата json
-                $data['img'] = json_encode($obj);
-
-
-            }
             //удаляем старое изображение
-            parent::deleteImage($article, Config::get('settings.image_path'));
+            parent::deleteImage($article, $path);
 
         }
         //обновляем модель Article ячейкаи массива $data

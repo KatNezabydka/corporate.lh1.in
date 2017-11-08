@@ -78,47 +78,28 @@ class PortfoliosRepository extends Repository
             //file() - возвращает только что загруженный файл
             $image = $request->file('image');
 
-            //проверка коррекно ли на сервер загружено изображение
-            //isValid() = true если без ошибок все
-            if ($image->isValid()) {
-                // имя для будущих изображений генерируем рандомно
-                $str = str_random(8);
+            $path = Config::get('settings.image_path_portfolio');
+            $size_path = Config::get('settings.image');
+            $size_min_max = Config::get('settings.portfolios_image');
 
-                //stdClass - пустой класс
-                $obj = new \stdClass;
+            //Добавляем изображение
+            //возвращает или json-ячейку img или false
+            $result_img_json = parent::addImage($image, $path, $size_path, $size_min_max);
 
-                $obj->mini = $str . '_mini.jpg';
-                $obj->max = $str . '_max.jpg';
-                $obj->path = $str . '.jpg';
-                //make - это конструктор, у фасада Image
-                //в нем хранится объект, который установлен в расширении Intervention Image
-                $img = Image::make($image);
-                //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
-                //public_path() - возвращает путь к public
-                //save - сохраняет данное изображение по теущему пути и имя файла
-                $img->fit(Config::get('settings.image')['width'],
-                    Config::get('settings.image')['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path_portfolio') . $obj->path);
+            //декодируем обьект в строку формата json
+            $data['img'] = $result_img_json;
+            //заполняем модель пустую модель Portfolio ячейкаи массива $data
 
-                $img->fit(Config::get('settings.articles_image')['max']['width'],
-                    Config::get('settings.articles_image')['max']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path_portfolio') . $obj->max);
-
-                $img->fit(Config::get('settings.articles_image')['mini']['width'],
-                    Config::get('settings.articles_image')['mini']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path_portfolio') . $obj->mini);
-
-                //декодируем обьект в строку формата json
-                $data['img'] = json_encode($obj);
-                //заполняем модель пустую модель Portfolio ячейкаи массива $data
-
-                if ($this->model->fill($data)->save()) {
-                    return ['status' => 'Портфолио добавлен'];
-                }
-
+            if ($this->model->fill($data)->save()) {
+                return ['status' => 'Портфолио добавлен'];
             }
+
 
         }
     }
 
-    public function updatePortfolio($request, $portfolio)
+    public
+    function updatePortfolio($request, $portfolio)
     {
 //    dd($portfolio);
         //еще раз проверяем есть ли доступ...указываем $this->model потому что данное условие будет проверенно в класе политики безопасности
@@ -160,40 +141,19 @@ class PortfoliosRepository extends Repository
             //file() - возвращает только что загруженный файл
             $image = $request->file('image');
 
-            //проверка коррекно ли на сервер загружено изображение
-            //isValid() = true если без ошибок все
-            if ($image->isValid()) {
-                // имя для будущих изображений генерируем рандомно
-                $str = str_random(8);
+            $path = Config::get('settings.image_path_portfolio');
+            $size_path = Config::get('settings.image');
+            $size_min_max = Config::get('settings.portfolios_image');
 
-                //stdClass - пустой класс
-                $obj = new \stdClass;
-
-                $obj->mini = $str . '_mini.jpg';
-                $obj->max = $str . '_max.jpg';
-                $obj->path = $str . '.jpg';
-                //make - это конструктор, у фасада Image
-                //в нем хранится объект, который установлен в расширении Intervention Image
-                $img = Image::make($image);
-                //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
-                //public_path() - возвращает путь к public
-                //save - сохраняет данное изображение по теущему пути и имя файла
-                $img->fit(Config::get('settings.image')['width'],
-                    Config::get('settings.image')['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path_portfolio') . $obj->path);
-
-                $img->fit(Config::get('settings.articles_image')['max']['width'],
-                    Config::get('settings.articles_image')['max']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path_portfolio') . $obj->max);
-
-                $img->fit(Config::get('settings.articles_image')['mini']['width'],
-                    Config::get('settings.articles_image')['mini']['height'])->save(public_path() . '/' . env('THEME') . Config::get('settings.image_path_portfolio') . $obj->mini);
+            //Добавляем изображение
+            //возвращает или json-ячейку img или false
+            $result_img_json = parent::addImage($image, $path, $size_path, $size_min_max);
 
                 //декодируем обьект в строку формата json
-                $data['img'] = json_encode($obj);
-
-            }
+                $data['img'] = $result_img_json;
 
             //удаляем старое изображение
-            parent::deleteImage($portfolio, Config::get('settings.image_path_portfolio'));
+            parent::deleteImage($portfolio, $path);
 
         }
         //обновляем модель Article ячейкаи массива $data
@@ -211,7 +171,8 @@ class PortfoliosRepository extends Repository
      * @param $article
      * @return array
      */
-    public function deletePortfolio($portfolio)
+    public
+    function deletePortfolio($portfolio)
     {
         //еще раз проверяем есть ли доступ...указываем модель $article
         //ArticlePolicy
