@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Gate;
 use Image;
 use Config;
 
+
 class ArticlesRepository extends Repository
 {
 
@@ -195,7 +196,8 @@ class ArticlesRepository extends Repository
 
 
             }
-
+            //удаляем старое изображение
+            parent::deleteImage($article, Config::get('settings.image_path'));
 
         }
         //обновляем модель Article ячейкаи массива $data
@@ -221,16 +223,18 @@ class ArticlesRepository extends Repository
         if (Gate::denies('destroy', $article)) {
             abort(403);
         }
+        //удаляем изображение
+        parent::deleteImage($article, Config::get('settings.image_path'));
+
         //Удаляем комментарии
         // $article->comments() - это метод в модели Article для доступа к комментариям, что привязвнны к статьи
         // и возвращает обьект конструктора запроса - обьект, который представляет конкретную связь
         //удаляет коментарии
         $article->comments()->delete();
-        //если удаление прошло успешно
-        if($article->delete()) {
+
+        if ($article->delete()) {
             return ['status' => 'Материал удален'];
         }
     }
-
 
 }

@@ -51,7 +51,7 @@
                                 @endif
 
                             </div>
-                            <a class="read-more"
+                            <a class="read-more "
                                href="{{route('portfolios.show',['slias' => $portfolio->alias])}}">{{Lang::get('ru.read_more')}}</a>
                         </div>
                         <div class="clear"></div>

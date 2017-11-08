@@ -68,8 +68,18 @@ abstract class Repository {
     public function one($alias, $attr = array()) {
 
        $result = $this->model->where('alias',$alias)->first();
-       return $result;
+//        $result->img = json_decode($result->img);
+        return $result;
 
+    }
+
+    public function deleteImage($model,$path){
+        $image = json_decode($model->img);
+
+        $destroy_path1 = public_path(env('THEME') . $path . $image->path);
+        $destroy_path2 = public_path(env('THEME') . $path . $image->max);
+        $destroy_path3 = public_path(env('THEME') . $path . $image->mini);
+        return \File::Delete([$destroy_path1, $destroy_path2, $destroy_path3]);
     }
 
     /**

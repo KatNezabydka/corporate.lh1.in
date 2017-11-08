@@ -90,15 +90,13 @@
                 <div class="msg-error"></div>
             </li>
 
-
-
             @if(isset($portfolio->img->path))
                 <li class="textarea-field">
 
                     <label>
                         <span class="label">{{Lang::get('ru.image_') }}: </span>
                     </label>
-                    {!! Html::image(asset(env('THEME')).'/images/articles/'.$portfolio->img->path,'',['style'=>'width:30%']) !!}
+                    {!! Html::image(asset(env('THEME')).'/images/projects/'.$portfolio->img->path,'',['style'=>'width:30%']) !!}
                     {!! Form::hidden('old_image',$portfolio->img->path) !!}
 
                 </li>

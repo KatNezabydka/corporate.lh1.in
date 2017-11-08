@@ -192,6 +192,9 @@ class PortfoliosRepository extends Repository
 
             }
 
+            //удаляем старое изображение
+            parent::deleteImage($portfolio, Config::get('settings.image_path_portfolio'));
+
         }
         //обновляем модель Article ячейкаи массива $data
         $portfolio->fill($data);
@@ -215,6 +218,9 @@ class PortfoliosRepository extends Repository
         if (Gate::denies('delete', $portfolio)) {
             abort(403);
         }
+
+        //удаляем изображение
+        parent::deleteImage($portfolio, Config::get('settings.image_path_portfolio'));
 
         //если удаление прошло успешно
         if ($portfolio->delete()) {

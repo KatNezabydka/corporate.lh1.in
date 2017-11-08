@@ -60,6 +60,7 @@ class PortfolioController extends SiteController
     {
 
         $portfolio = $this->p_rep->one($alias);
+        $portfolio->img = json_decode($portfolio->img);
 
               // Добавляем описание в мета конкретной статьи
         $this->title = $portfolio->title;
