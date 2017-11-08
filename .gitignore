@@ -2,4 +2,6 @@
 corporate.sql
 .htaccess
 .gitignore
-111.php
+
+/сервер/
+/public/pink/images/
