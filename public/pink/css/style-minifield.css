@@ -4586,10 +4586,10 @@ pre.shortcodes {
 	right: 6px;
 	background: url('../images/ie_overlay_82.png') repeat;
 	background: rgba(0,0,0,0.7);
-	padding-top: 15px;
+	/*padding-top: 15px;*/
 	padding-left: 24px;
 	padding-bottom: 13px;
-	min-width: 220px;
+	min-width: 200px;
 	text-align: right;
 	color: #fff;
 }

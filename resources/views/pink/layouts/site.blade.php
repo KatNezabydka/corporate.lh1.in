@@ -122,9 +122,7 @@
 
                 <div id="sidebar-header" class="group">
                     <div class="widget-first widget yit_text_quote">
-                        <blockquote class="text-quote-quote">&#8220;The caterpillar does all the work but the butterfly
-                            gets all the publicity.&#8221;
-                        </blockquote>
+                        <blockquote class="text-quote-quote">&#8220;Нет сказок лучше тех, которые создаёт сама жизнь&#8221;</blockquote>
                         <cite class="text-quote-author">
                             @if(\Auth::user()) <a href="/admin"> Личный кабинет</a> / <a href="/logout">Выйти</a>
                                 @else <a href="/login">Войти</a>
