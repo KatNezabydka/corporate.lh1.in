@@ -13,8 +13,8 @@ return [
                         'mini' => ['width'=>55,'height'=>55],
                         ],
     'portfolios_image' => [
-        'max' => ['width'=>816,'height'=>282],
-        'mini' => ['width'=>55,'height'=>55],
+        'max' => ['width'=>770,'height'=>368],
+        'mini' => ['width'=>175,'height'=>175],
     ],
 
     'slider_image' => ['width'=>1200,'height'=>395],
