@@ -13,7 +13,7 @@
                     <div class="portfolios hentry work group">
                         <div class="work-thumbnail">
                             <a class="thumb"><img
-                                        src="{{asset(env('THEME'))}}/images/projects/{{ $portfolio->img->max }}"
+                                        src="{{asset(config('settings.theme'))}}/images/projects/{{ $portfolio->img->max }}"
                                         alt="{{Lang::get('ru.empty')}}" title="{{$portfolio->title}}"/></a>
                         </div>
                         <div class="work-description">
@@ -45,7 +45,7 @@
 
                             <div class="related_project">
                                 <a class="related_proj related_img" href="{{ route('portfolios.show',['alias' => $portfolio->alias] ) }}" title="{{$portfolio->title}}"><img
-                                            src="{{asset(env('THEME'))}}/images/projects/{{ $portfolio->img->mini }}" alt="{{Lang::get('ru.empty')}}" title="{{$portfolio->title}}"/></a>
+                                            src="{{asset(config('settings.theme'))}}/images/projects/{{ $portfolio->img->mini }}" alt="{{Lang::get('ru.empty')}}" title="{{$portfolio->title}}"/></a>
                                 <h4><a href="{{ route('portfolios.show',['alias' => $portfolio->alias] ) }}">{{$portfolio->title}}</a></h4>
                             </div>
 

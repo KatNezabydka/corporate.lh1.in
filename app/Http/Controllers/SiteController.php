@@ -73,20 +73,20 @@ class SiteController extends Controller
 
         //$navigation - меню
         //render() - макет преобразует в строку
-        $navigation = view(env('THEME') . '.navigation')->with('menu', $menu)->render();
+        $navigation = view(config('settings.theme') . '.navigation')->with('menu', $menu)->render();
         //добавили в параметры навигацию - add - добавляет в массив ячейка (1)в какой массив, 2) ключ создаваемой ячейки, 3) значение)
         $this->vars = array_add($this->vars, 'navigation', $navigation);
 
         // правый бар
         if ($this->contentRightBar) {
-            $rightBar = view(env('THEME') . '.rightBar')->with('content_rightBar', $this->contentRightBar)->render();
+            $rightBar = view(config('settings.theme') . '.rightBar')->with('content_rightBar', $this->contentRightBar)->render();
             // добавляем в шаблон для отображения
             $this->vars = array_add($this->vars, 'rightBar', $rightBar);
         }
 
         // левый бар
         if ($this->contentLeftBar) {
-            $leftBar = view(env('THEME') . '.leftBar')->with('content_leftBar', $this->contentLeftBar)->render();
+            $leftBar = view(config('settings.theme') . '.leftBar')->with('content_leftBar', $this->contentLeftBar)->render();
             // добавляем в шаблон для отображения
             $this->vars = array_add($this->vars, 'leftBar', $leftBar);
         }
@@ -101,7 +101,7 @@ class SiteController extends Controller
         $this->vars = array_add($this->vars, 'title', $this->title);
 
         //футер
-        $footer = view(env('THEME') . '.footer')->render();
+        $footer = view(config('settings.theme') . '.footer')->render();
         $this->vars = array_add($this->vars, 'footer', $footer);
         //имя шаблона и список параметров, передаваемых в вид
         return view($this->template)->with($this->vars);

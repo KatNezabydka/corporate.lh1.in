@@ -96,7 +96,7 @@
                     <label>
                         <span class="label">{{Lang::get('ru.image_') }}: </span>
                     </label>
-                    {!! Html::image(asset(env('THEME')).'/images/projects/'.$portfolio->img->path,'',['style'=>'width:30%']) !!}
+                    {!! Html::image(asset(config('settings.theme')).'/images/projects/'.$portfolio->img->path,'',['style'=>'width:30%']) !!}
                     {!! Form::hidden('old_image',$portfolio->img->path) !!}
 
                 </li>

@@ -31,7 +31,7 @@ class IndexController extends SiteController
 
         $this->middleware('web');
         //указываем имя страницы
-        $this->template = env('THEME') . '.index';
+        $this->template = config('settings.theme') . '.index';
     }
 
     /**
@@ -47,7 +47,7 @@ class IndexController extends SiteController
         //только их много, отображать нужно только 4
         $portfolios = $this->getPortfolio();
 
-        $content = view(env('THEME') . '.content')->with('portfolios', $portfolios)->render();
+        $content = view(config('settings.theme') . '.content')->with('portfolios', $portfolios)->render();
         $this->vars = array_add($this->vars, 'content', $content);
 
 
@@ -56,7 +56,7 @@ class IndexController extends SiteController
         //Добавляем слайдер - он только на главной странице
         //render() - переводит вид в строку
         //with - это параметры, которые передаются
-        $sliders = view(env('THEME') . '.slider')->with('sliders', $sliderItems)->render();
+        $sliders = view(config('settings.theme') . '.slider')->with('sliders', $sliderItems)->render();
         $this->vars = array_add($this->vars, 'sliders', $sliders);
 
         //переопределяем переменные
@@ -69,7 +69,7 @@ class IndexController extends SiteController
 
         $articles = $this->getArticles();
 
-        $this->contentRightBar = view(env('THEME') . '.indexBar')->with('articles', $articles)->render();
+        $this->contentRightBar = view(config('settings.theme') . '.indexBar')->with('articles', $articles)->render();
 
         return $this->renderOutput();
 

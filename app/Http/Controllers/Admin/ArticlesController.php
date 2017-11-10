@@ -36,7 +36,7 @@ class ArticlesController extends AdminController
         $this->cat_rep = $cat_rep;
 
         //переопределяем свойство template - имя шаблона, которое используется для главной страницы
-        $this->template = env('THEME') . '.admin.articles';
+        $this->template = config('settings.theme') . '.admin.articles';
 
     }
 
@@ -53,7 +53,7 @@ class ArticlesController extends AdminController
         //выбор статей из бд коллекции моделей
         $articles = $this->getArticles();
         //формируем контент - with - передать переменные
-        $this->content = view(env('THEME') . '.admin.articles_content')->with('articles', $articles)->render();
+        $this->content = view(config('settings.theme') . '.admin.articles_content')->with('articles', $articles)->render();
 
 
         return $this->renderOut();
@@ -102,7 +102,7 @@ class ArticlesController extends AdminController
                 $lists[$categories->where('id', $category->parent_id)->first()->title][$category->id] = $category->title;
             }
         }
-        $this->content = view(env('THEME') . '.admin.articles_create_content')->with('categories', $lists)->render();
+        $this->content = view(config('settings.theme') . '.admin.articles_create_content')->with('categories', $lists)->render();
         return $this->renderOut();
 
     }
@@ -190,7 +190,7 @@ class ArticlesController extends AdminController
         }
         $this->title = 'Редактирование материала - '. $article->title;
 
-        $this->content = view(env('THEME') . '.admin.articles_create_content')->with(['article'=>$article ,'categories'=> $lists])->render();
+        $this->content = view(config('settings.theme') . '.admin.articles_create_content')->with(['article'=>$article ,'categories'=> $lists])->render();
         return $this->renderOut();
     }
 

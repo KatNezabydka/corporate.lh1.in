@@ -46,7 +46,7 @@ class SlidersRepository extends Repository
 
                 $img = Image::make($image);
                 //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
-                if ($img->fit($size_path['width'], $size_path['height'])->save(public_path() . '/' . env('THEME') . $path . '/' . $str)) {
+                if ($img->fit($size_path['width'], $size_path['height'])->save(public_path() . '/' . config('settings.theme') . $path . '/' . $str)) {
                     $data['img'] = $str;
                 }
             }
@@ -83,13 +83,13 @@ class SlidersRepository extends Repository
 
                 $img = Image::make($image);
                 //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
-                if ($img->fit($size_path['width'], $size_path['height'])->save(public_path() . '/' . env('THEME') . $path . '/' . $str)) {
+                if ($img->fit($size_path['width'], $size_path['height'])->save(public_path() . '/' . config('settings.theme') . $path . '/' . $str)) {
                     $data['img'] = $str;
                 }
             }
 
             //удаляем старое изображение
-            $path = public_path() . '/' . env('THEME') . Config::get('settings.slider_path') . $slider->img;
+            $path = public_path() . '/' . config('settings.theme') . Config::get('settings.slider_path') . $slider->img;
             \File::Delete($path);
 
         }
@@ -110,7 +110,7 @@ class SlidersRepository extends Repository
     {
         //удаляем изображение
         $slider = Slider::select('img')->where('id', $id)->get()->first();
-        $path = public_path() . '/' . env('THEME') . Config::get('settings.slider_path') . $slider->img;
+        $path = public_path() . '/' . config('settings.theme') . Config::get('settings.slider_path') . $slider->img;
         \File::Delete($path);
 
         //если удаление прошло успешно

@@ -35,7 +35,7 @@ class PortfoliosController extends AdminController
         $this->p_rep = $p_rep;
 
         //переопределяем свойство template - имя шаблона, которое используется для главной страницы
-        $this->template = env('THEME') . '.admin.portfolios';
+        $this->template = config('settings.theme') . '.admin.portfolios';
 
     }
 
@@ -52,7 +52,7 @@ class PortfoliosController extends AdminController
         //выбор портфолио из бд коллекции моделей
         $portfolios = $this->getPortfolios();
         //формируем контент - with - передать переменные
-        $this->content = view(env('THEME') . '.admin.portfolios_content')->with('portfolios', $portfolios)->render();
+        $this->content = view(config('settings.theme') . '.admin.portfolios_content')->with('portfolios', $portfolios)->render();
 
 
         return $this->renderOut();
@@ -96,7 +96,7 @@ class PortfoliosController extends AdminController
             $lists[$filter->alias] = $filter->title;
         }
 
-        $this->content = view(env('THEME') . '.admin.portfolios_create_content')->with(['filters'=>$lists])->render();
+        $this->content = view(config('settings.theme') . '.admin.portfolios_create_content')->with(['filters'=>$lists])->render();
         return $this->renderOut();
 
     }
@@ -171,7 +171,7 @@ class PortfoliosController extends AdminController
             $lists[$filter->alias] = $filter->title;
         }
 
-        $this->content = view(env('THEME') . '.admin.portfolios_create_content')->with(['portfolio'=>$portfolio, 'filters'=>$lists])->render();
+        $this->content = view(config('settings.theme') . '.admin.portfolios_create_content')->with(['portfolio'=>$portfolio, 'filters'=>$lists])->render();
         return $this->renderOut();
     }
 

@@ -113,13 +113,13 @@ abstract class Repository
                 //уменьшает изображение и масштабирует его (ресайзит) указываем width,height
                 //public_path() - возвращает путь к public
                 //save - сохраняет данное изображение по теущему пути и имя файла
-                $img->fit($size_path['width'],$size_path['height'])->save(public_path() . '/' . env('THEME') . $path . $obj->path);
+                $img->fit($size_path['width'],$size_path['height'])->save(public_path() . '/' . config('settings.theme') . $path . $obj->path);
 
                 $img->fit($size_min_max['max']['width'],
-                          $size_min_max['max']['height'])->save(public_path() . '/' . env('THEME') . $path . $obj->max);
+                          $size_min_max['max']['height'])->save(public_path() . '/' . config('settings.theme') . $path . $obj->max);
 
                 $img->fit($size_min_max['mini']['width'],
-                          $size_min_max['mini']['height'])->save(public_path() . '/' . env('THEME') . $path . $obj->mini);
+                          $size_min_max['mini']['height'])->save(public_path() . '/' . config('settings.theme') . $path . $obj->mini);
 
                 //декодируем обьект в строку формата json
                 $result = json_encode($obj);
@@ -139,9 +139,9 @@ abstract class Repository
     {
         $image = json_decode($model->img);
 
-        $destroy_path1 = public_path(env('THEME') . $path . $image->path);
-        $destroy_path2 = public_path(env('THEME') . $path . $image->max);
-        $destroy_path3 = public_path(env('THEME') . $path . $image->mini);
+        $destroy_path1 = public_path(config('settings.theme') . $path . $image->path);
+        $destroy_path2 = public_path(config('settings.theme') . $path . $image->max);
+        $destroy_path3 = public_path(config('settings.theme') . $path . $image->mini);
         return \File::Delete([$destroy_path1, $destroy_path2, $destroy_path3]);
     }
 

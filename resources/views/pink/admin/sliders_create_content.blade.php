@@ -34,7 +34,7 @@
                     <label>
                         <span class="label">{{Lang::get('ru.image_') }}: </span>
                     </label>
-                    {!! Html::image(asset(env('THEME')).'/'.$slider->img ,'',['style'=>'width:30%']) !!}
+                    {!! Html::image(asset(config('settings.theme')).'/'.$slider->img ,'',['style'=>'width:30%']) !!}
                     {!! Form::hidden('old_image',$slider->img) !!}
 
                 </li>

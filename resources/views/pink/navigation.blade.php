@@ -3,7 +3,7 @@
     <div class="menu classic">
         <ul id="nav" class="menu">
             {{--roots() - возвращает только родительские пункты меню--}}
-            @include(env('THEME').'.customMenuItems',['items' => $menu->roots()])
+            @include(config('settings.theme').'.customMenuItems',['items' => $menu->roots()])
 
         </ul>
     </div>

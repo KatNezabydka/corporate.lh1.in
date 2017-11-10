@@ -55,13 +55,13 @@ class Handler extends ExceptionHandler
                     $obj = new \App\Http\Controllers\SiteController(new \App\Repositories\MenusRepository(new \App\Menu));
 
                     //это готовая панель навигации
-                    $navigation = view(env('THEME') . '.navigation')->with('menu', $obj->getMenu())->render();
+                    $navigation = view(config('settings.theme') . '.navigation')->with('menu', $obj->getMenu())->render();
                     //сформинуем ответ response - вызовим вид view
                     //в качестве второго аргумента передаем массив параметров, которые будут переданы в макет
 
                     //Залогировать что страница не найдена и какая не найдена покажем
                     \Log::alert('Страница не найдена - '.$request->url());
-                    return response()->view(env('THEME').'.404',['bar'=> 'no', 'title'=> 'Страница не найдена', 'navigation'=> $navigation]);
+                    return response()->view(config('settings.theme').'.404',['bar'=> 'no', 'title'=> 'Страница не найдена', 'navigation'=> $navigation]);
             }
         }
 

@@ -20,7 +20,7 @@ class ContactsController extends SiteController
         //показываем что на главной странице, что там есть правый бар
         $this->bar = 'left';
         //указываем имя страницы
-        $this->template = env('THEME') . '.contacts';
+        $this->template = config('settings.theme') . '.contacts';
     }
 
 
@@ -48,9 +48,9 @@ class ContactsController extends SiteController
             $data = $request->all();
             //отправка сообщений
             //use ($data) - пишем, если хотим использовать значение этой переменной - данные с отправляемой формы
-            $result = Mail::send(env('THEME') . '.email', ['data' => $data], function ($m) use ($data) {
+            $result = Mail::send(config('settings.theme') . '.email', ['data' => $data], function ($m) use ($data) {
 
-                $mail_admin = env('MAIL_ADMIN');
+                $mail_admin = config('settings.mail_admin');
 
                 $m->from($data['email'], $data['name']);
                 $m->to($mail_admin, 'Mr. Admin')->subject('Question');
@@ -64,10 +64,10 @@ class ContactsController extends SiteController
         }
 
         $this->title = 'Контакты';
-        $content = view(env('THEME') . '.contact_content')->render();
+        $content = view(config('settings.theme') . '.contact_content')->render();
         $this->vars = array_add($this->vars, 'content', $content);
 
-        $this->contentLeftBar = view(env('THEME') . '.contact_bar')->render();
+        $this->contentLeftBar = view(config('settings.theme') . '.contact_bar')->render();
 
         return $this->renderOutput();
     }

@@ -27,7 +27,7 @@
                             <td>
                                 @if(isset($article->img->mini))
                                     {{--изображение кодируется в формате json в Repository метод check()--}}
-                                    {!! Html::image(asset(env('THEME')).'/images/articles/'.$article->img->mini) !!}
+                                    {!! Html::image(asset(config('settings.theme')).'/images/articles/'.$article->img->mini) !!}
                                     @endif
                             </td>
                             <td>{{$article->category->title}}</td>

@@ -36,7 +36,7 @@
     <!-- #comment-##  -->
     @if(isset($com[$item->id]))
         <ul class="children">
-            @include(env('THEME').'.comment',['items'=>$com[$item->id]])
+            @include(config('settings.theme').'.comment',['items'=>$com[$item->id]])
         </ul>
         @endif
 

@@ -9,6 +9,7 @@ use App\Http\Controllers\Controller;
 //Работаем с фасадом Auth, Menu
 use Illuminate\Support\Facades\Auth;
 use Menu;
+use Gate;
 
 class AdminController extends \App\Http\Controllers\Controller
 {
@@ -51,7 +52,7 @@ class AdminController extends \App\Http\Controllers\Controller
         //код главного меню панели администратора - heml код
         //с with передаем переменные
         //render() - преобразует объект в готовый html код
-        $navigation = view(env('THEME').'.admin.navigation')->with('menu',$menu)->render();
+        $navigation = view(config('settings.theme').'.admin.navigation')->with('menu',$menu)->render();
         $this->vars= array_add($this->vars, 'navigation',$navigation);
 
         //если основной контент есть - добавляем его к переменным vars
@@ -59,7 +60,7 @@ class AdminController extends \App\Http\Controllers\Controller
             $this->vars= array_add($this->vars, 'content',$this->content);
         }
         //формируем футер
-        $footer = view(env('THEME').'.admin.footer')->render();
+        $footer = view(config('settings.theme').'.admin.footer')->render();
         $this->vars= array_add($this->vars, 'footer',$footer);
 
         return view($this->template)->with($this->vars);
@@ -67,14 +68,32 @@ class AdminController extends \App\Http\Controllers\Controller
 
     public function getMenu(){
 
-        return Menu::make('adminMenu', function($menu) {
+         return Menu::make('adminMenu', function($menu) {
             //добавляем пункты меню - Имя и Путь тот, у которого тип ресурс
-            $menu->add('Статьи',array('route' => 'admin.articles.index'));
-            $menu->add('Портфолио',array('route' => 'admin.portfolios.index'));
-            $menu->add('Меню',array('route' => 'admin.menus.index'));
-            $menu->add('Пользователи',array('route' => 'admin.users.index'));
-            $menu->add('Привилегии',array('route' => 'admin.permissions.index'));
-            $menu->add('Сдайдер',array('route' => 'admin.sliders.index'));
+
+             //Проверяем есть ли у пользователя право на выполнение определенного действия, если нет - ссылку не показываем
+             //allows() - рпазрешено ли выполнять
+            if(Gate::allows('VIEW_ADMIN_ARTICLES')){
+                $menu->add('Статьи',array('route' => 'admin.articles.index'));
+            }
+             if(Gate::allows('VIEW_ADMIN_PORTFOLIOS')){
+                 $menu->add('Портфолио',array('route' => 'admin.portfolios.index'));
+             }
+             if(Gate::allows('VIEW_ADMIN_MENU')){
+                 $menu->add('Меню',array('route' => 'admin.menus.index'));
+             }
+             if(Gate::allows('VIEW_ADMIN_USERS')){
+                 $menu->add('Пользователи',array('route' => 'admin.users.index'));
+             }
+
+             if(Gate::allows('VIEW_ADMIN_PERMISSIONS')){
+                 $menu->add('Привилегии',array('route' => 'admin.permissions.index'));
+             }
+
+             if(Gate::allows('EDIT_SLIDERS')){
+                 $menu->add('Сдайдер',array('route' => 'admin.sliders.index'));
+             }
+
         });
     }
 }

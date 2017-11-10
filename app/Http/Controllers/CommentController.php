@@ -101,7 +101,7 @@ class CommentController extends SiteController
         //аватарка в комменте
         $data['hash'] = md5($data['email']);
 
-        $view_comment = view(env('THEME').'.content_one_comment')->with('data', $data)->render();
+        $view_comment = view(config('settings.theme').'.content_one_comment')->with('data', $data)->render();
 
         return \Response::json(['success' => TRUE, 'comment' => $view_comment, 'data' => $data]);
 

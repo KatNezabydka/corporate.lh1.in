@@ -3,6 +3,8 @@ return [
 
     'slider_path' => '/images/slider-cycle/',
     'home_port_count' => 5,
+    'mail_admin' => 'katorif@ukr.net',
+    'theme' => env('THEME','default'),
     'home_articles_count' => 3,
     'paginate' => 2,
     'recent_comment' => 3,

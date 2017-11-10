@@ -22,7 +22,7 @@ class IndexController extends AdminController
         }
 
        //переопределяем свойство template - имя шаблона, которое используется для главной страницы
-        $this->template = env('THEME').'.admin.index';
+        $this->template = config('settings.theme').'.admin.index';
 
     }
 

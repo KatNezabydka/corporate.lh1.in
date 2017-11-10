@@ -20,11 +20,11 @@
                     <div class="hentry work group">
                         <div class="work-thumbnail">
                             <div class="nozoom">
-                                <img src="{{asset(env('THEME'))}}/images/projects/{{ $portfolio->img->max }}" alt="0061"
+                                <img src="{{asset(config('settings.theme'))}}/images/projects/{{ $portfolio->img->max }}" alt="0061"
                                      title="{{$portfolio->title}}"/>
                                 <div class="overlay">
                                     <a class="overlay_img"
-                                       href="{{asset(env('THEME'))}}/images/projects/{{ $portfolio->img->path }}"
+                                       href="{{asset(config('settings.theme'))}}/images/projects/{{ $portfolio->img->path }}"
                                        rel="lightbox" title={{$portfolio->title}}></a>
                                     {{-- функция route() - ссылка на страницу просмотра детальной информации по портфолио--}}
                                     {{--portfolios(это псевдоним).show = какой метод отобразит, ['slias' => $portfolio->alias] = параметры--}}

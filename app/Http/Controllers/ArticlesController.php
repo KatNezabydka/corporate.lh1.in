@@ -24,7 +24,7 @@ class ArticlesController extends SiteController
         //показываем что на главной странице, что там есть правый бар
         $this->bar = 'right';
         //указываем имя страницы
-        $this->template = env('THEME') . '.articles';
+        $this->template = config('settings.theme') . '.articles';
     }
 
     //отображение списка статей, в центральной области
@@ -46,7 +46,7 @@ class ArticlesController extends SiteController
         $portfolios = $this->getPortfolios(config('settings.recent_portfolios'));
 
 
-        $this->contentRightBar = view(env('THEME') . '.articlesBar')->with(['comments' => $comments, 'portfolios' => $portfolios])->render();
+        $this->contentRightBar = view(config('settings.theme') . '.articlesBar')->with(['comments' => $comments, 'portfolios' => $portfolios])->render();
 
         return $this->renderOutput();
 
@@ -75,13 +75,13 @@ class ArticlesController extends SiteController
             //ВЫВЕСТИ ЧТО НЕТ ДАННЫХ
         }
 
-        $content = view(env('THEME') . '.article_content')->with('article', $article)->render();
+        $content = view(config('settings.theme') . '.article_content')->with('article', $article)->render();
         $this->vars = array_add( $this->vars,'content',$content );
 
         $comments = $this->getComments(config('settings.recent_comment'));
         $portfolios = $this->getPortfolios(config('settings.recent_portfolios'));
 
-        $this->contentRightBar = view(env('THEME') . '.articlesBar')->with(['comments' => $comments, 'portfolios' => $portfolios])->render();
+        $this->contentRightBar = view(config('settings.theme') . '.articlesBar')->with(['comments' => $comments, 'portfolios' => $portfolios])->render();
 
 
         return $this->renderOutput();

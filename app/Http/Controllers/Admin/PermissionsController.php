@@ -26,14 +26,14 @@ class PermissionsController extends AdminController
         parent::__construct();
 
         //Проверяем есть ли у пользователя права на редактирование привилегий
-        if (Gate::denies('EDIT_USERS')) {
+        if (Gate::denies('VIEW_ADMIN_PERMISSIONS')) {
             abort(403);
         }
 
         $this->per_rep = $per_rep;
         $this->rol_rep = $rol_rep;
         //каталог и имя шаблона
-        $this->template = env('THEME').'.admin.permissions';
+        $this->template = config('settings.theme').'.admin.permissions';
     }
     /**
      * Display a listing of the resource.
@@ -49,7 +49,7 @@ class PermissionsController extends AdminController
         $permissions = $this->getPermissions();
 
         //Формируем внешний вид
-        $this->content = view(env('THEME').'.admin.permissions_content')->with(['roles'=>$roles, 'priv'=>$permissions])->render();
+        $this->content = view(config('settings.theme').'.admin.permissions_content')->with(['roles'=>$roles, 'priv'=>$permissions])->render();
 
         return $this->renderOut();
 

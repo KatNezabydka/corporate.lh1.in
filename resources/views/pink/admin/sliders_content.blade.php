@@ -25,7 +25,7 @@
                             <td >
                             @if(isset($slider->img))
                                 {{--изображение кодируется в формате json в Repository метод check()--}}
-                                {!! Html::image(asset(env('THEME')).$slider->img ) !!}
+                                {!! Html::image(asset(config('settings.theme')).$slider->img ) !!}
                             @endif
                             </td >
                             <td>

@@ -6,6 +6,7 @@
             <p>{{ Lang::get('ru.no_data') }}</p>
             </div>
         @endif
+
         @if($article)
 
             <div class="thumbnail">
@@ -13,7 +14,7 @@
                 <h1 class="post-title"><a href="#">{{ $article->title }}</a></h1>
                 <!-- post featured -->
                 <div class="image-wrap">
-                    <img src="{{asset(env('THEME'))}}/images/articles/{{ $article->img->max }}"
+                    <img src="{{asset(config('settings.theme'))}}/images/articles/{{ $article->img->max }}"
                          alt="{{Lang::get('ru.empty')}}"
                          title="{{ $article->title }}"/>
                 </div>
@@ -75,7 +76,7 @@
                         @break
                     @endif
 
-                    @include(env('THEME').'.comment',['items' => $comments])
+                    @include(config('settings.theme').'.comment',['items' => $comments])
 
                 @endforeach
 

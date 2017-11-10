@@ -316,6 +316,10 @@ html { min-height:101% }
 }
 */
 
+.menu >ul {
+    padding: 0 20px !important;
+}
+
 /* Handle the menu without Javascript */
 .no_js #header  .menu > ul ul > li :hover ul {
     display: block;

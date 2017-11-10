@@ -16,12 +16,12 @@
                             <div class="work-thumbnail">
                                 {{--0081-385x192.jpg--}}
                                 <a class="thumb"><img
-                                            src="{{asset(env('THEME')) }}/images/projects/{{ $item->img->max }}"
+                                            src="{{asset(config('settings.theme')) }}/images/projects/{{ $item->img->max }}"
                                             alt="{{Lang::get('ru.empty')}}" title="0081"/></a>
                                 <div class="work-overlay">
                                     <h3><a href="{{ route('portfolios.show', ['alias' => $item->alias]) }}">{{ $item->title }}</a></h3>
                                     <p class="work-overlay-categories"><img
-                                                src="{{asset(env('THEME')) }}/images/categories.png"
+                                                src="{{asset(config('settings.theme')) }}/images/categories.png"
                                                 alt="Categories"/> in: <a href="#">{{$item->filter->title}}</a>
                                     </p>
                                 </div>
@@ -49,11 +49,11 @@
                             <div class="related_project {{ ($k == 4) ? 'related_project_last' : '' }}">
                                 <div class="overlay_a related_img">
                                     <div class="overlay_wrapper">
-                                        <img src="{{asset(env('THEME')) }}/images/projects/{{ $item->img->mini }}"
+                                        <img src="{{asset(config('settings.theme')) }}/images/projects/{{ $item->img->mini }}"
                                              alt="{{Lang::get('ru.empty')}}" title="0061"/>
                                         <div class="overlay">
                                             <a class="overlay_img"
-                                               href="{{asset(env('THEME')) }}/images/projects/{{ $item->img->path }}"
+                                               href="{{asset(config('settings.theme')) }}/images/projects/{{ $item->img->path }}"
                                                rel="lightbox" title=""></a>
                                             <a class="overlay_project" href="{{ route('portfolios.show', ['alias' => $item->alias]) }}"></a>
                                             <span class="overlay_title">{{ $item->title }}</span>

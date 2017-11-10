@@ -7,7 +7,7 @@
 
             <ul class="sub-menu">
                 {{--children() - возвращает только дочерние пункты меню--}}
-                @include(env('THEME').'.customMenuItems',['items' => $item->children()])
+                @include(config('settings.theme').'.customMenuItems',['items' => $item->children()])
             </ul>
 
         @endif

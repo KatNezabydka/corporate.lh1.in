@@ -7,7 +7,7 @@
             @set($i,1)
             @foreach($sliders as $slider)
                 <li>
-                    <div class="slide-holder" style="background:  url('{{asset(env('THEME')) . $slider->img }}') no-repeat center center" style="height:483px;">
+                    <div class="slide-holder" style="background:  url('{{asset(config('settings.theme')) . $slider->img }}') no-repeat center center" style="height:483px;">
                         <div class="slide-content-holder inner" style="height:483px;">
                             @if($i%2 !== 0)
                                 <div class="slide-content-holder-content" style="position: absolute; top:30px;right:650px;">
@@ -37,12 +37,12 @@
         {{--<div id="yit-widget-area" class="group">--}}
             {{--<div class="yit-widget-content inner group">--}}
                 {{--<div class="widget-first yit-widget widget col1_4 one-fourth col widget-icon-text group">--}}
-                    {{--<img class="icon-img" src="{{asset(env('THEME')) }}/images/icons/cloud.jpg" alt="{{Lang::get('ru.empty')}}"/>--}}
+                    {{--<img class="icon-img" src="{{asset(config('settings.theme')) }}/images/icons/cloud.jpg" alt="{{Lang::get('ru.empty')}}"/>--}}
                     {{--<h3>Great Design</h3>--}}
                     {{--<p>A widgetized area: add shorcodes, text, icons and more.</p>--}}
                 {{--</div>--}}
                 {{--<div class="yit-widget widget col1_4 one-fourth col widget-last-post group">--}}
-                    {{--<img class="icon-img" src="{{asset(env('THEME')) }}/images/icons/blog1.png" alt="{{Lang::get('ru.empty')}}"/>--}}
+                    {{--<img class="icon-img" src="{{asset(config('settings.theme')) }}/images/icons/blog1.png" alt="{{Lang::get('ru.empty')}}"/>--}}
                     {{--<div>--}}
                         {{--<h3><a class="text-color" href="#" title="">Blog news</a></h3>--}}
                         {{--<p>Section shortcodes &amp; sticky posts! <a href="article.html"> | more →</a></p>--}}
@@ -114,7 +114,7 @@
         });
     </script>
     <div class="mobile-slider">
-        <div class="slider fixed-image inner"><img src="{{asset(env('THEME')) }}/images/slider-cycle/cycle-fixed.jpg"
+        <div class="slider fixed-image inner"><img src="{{asset(config('settings.theme')) }}/images/slider-cycle/cycle-fixed.jpg"
                                                    alt="{{Lang::get('ru.empty')}}"/></div>
     </div>
 

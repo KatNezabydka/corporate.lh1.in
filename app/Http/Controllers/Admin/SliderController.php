@@ -27,7 +27,7 @@ class SliderController extends AdminController
 
         $this->s_rep = $s_rep;
         //каталог и имя шаблона
-        $this->template = env('THEME').'.admin.sliders';
+        $this->template = config('settings.theme').'.admin.sliders';
     }
     /**
      * Display a listing of the resource.
@@ -54,7 +54,7 @@ class SliderController extends AdminController
 
         });
         //Формируем внешний вид
-        $this->content = view(env('THEME').'.admin.sliders_content')->with('sliders',$sliders)->render();
+        $this->content = view(config('settings.theme').'.admin.sliders_content')->with('sliders',$sliders)->render();
 
         return $this->renderOut();
     }
@@ -68,7 +68,7 @@ class SliderController extends AdminController
     {
         $this->title = Lang::get('ru.add_new_sliders');
 
-        $this->content = view(env('THEME') . '.admin.sliders_create_content')->render();
+        $this->content = view(config('settings.theme') . '.admin.sliders_create_content')->render();
         return $this->renderOut();
     }
 
@@ -114,7 +114,7 @@ class SliderController extends AdminController
         $slider = Slider::select('title', 'desc', 'id','img')->where('id', $id)->get()->first();
         $this->title = 'Редактирование слайдера - '. $slider->title;
 
-        $this->content = view(env('THEME') . '.admin.sliders_create_content')->with( 'slider',$slider)->render();
+        $this->content = view(config('settings.theme') . '.admin.sliders_create_content')->with( 'slider',$slider)->render();
         return $this->renderOut();
 
     }

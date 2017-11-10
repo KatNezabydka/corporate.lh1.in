@@ -28,7 +28,7 @@
                             <td>
                                 @if(isset($portfolio->img->mini))
                                     {{--изображение кодируется в формате json в Repository метод check()--}}
-                                    {!! Html::image(asset(env('THEME')).'/images/projects/'.$portfolio->img->mini) !!}
+                                    {!! Html::image(asset(config('settings.theme')).'/images/projects/'.$portfolio->img->mini) !!}
                                 @endif
                             </td>
                             <td>{{$portfolio->customer}}</td>

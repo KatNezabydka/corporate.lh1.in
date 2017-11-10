@@ -25,7 +25,7 @@ class PermissionPolicy
      */
     public function change(User $user)
     {
-        //он делает с  EDIT_USERS
+        //он делает с  VIEW_ADMIN_PERMISSIONS
        return $user->canDo('EDIT_PERMISSIONS');
     }
 
